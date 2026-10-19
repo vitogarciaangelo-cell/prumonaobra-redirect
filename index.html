@@ -563,6 +563,10 @@ a.btn { text-decoration: none; }
 
 /* module grid: the reel's modules as tiles; a dot marks the films already seen */
 .mg { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+.mg > li { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 8px; }
+.mg-all { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 8px 14px; border: 1px solid rgba(57, 213, 245, .35); border-radius: 12px; background: rgba(57, 213, 245, .06); color: var(--fg); font: 600 13px/1.2 var(--f-mono); cursor: pointer; transition: background-color .2s, border-color .2s; }
+.mg-all::after { content: ""; width: 7px; height: 7px; border-right: 2px solid var(--cyan); border-bottom: 2px solid var(--cyan); transform: rotate(-45deg); }
+.mg-all:hover, .mg-all:focus-visible { border-color: var(--cyan); background: rgba(57, 213, 245, .14); }
 .mg-b { width: 100%; height: 100%; justify-content: flex-start; align-items: flex-start; white-space: normal; padding: 14px 16px 14px 12px; border-radius: 16px; border: 1px solid var(--rule);
   background: linear-gradient(180deg, rgba(22, 44, 72, .55), rgba(12, 27, 47, .55)); transition: border-color .2s, transform .2s, background-color .2s; }
 .mg-b:hover, .mg-b:focus-visible { border-color: rgba(57, 213, 245, .5); transform: translateY(-2px); }
@@ -756,6 +760,74 @@ a.btn { text-decoration: none; }
 .btn.ghost:hover { background: rgba(57, 213, 245, .08); border-color: var(--cyan); }
 .btn.sm { min-height: 36px; padding: 8px 14px; font-size: 13px; }
 /* site bar: slides in once the pinned film has been scrolled past */
+/* ---------- module panel: everything about a module ---------- */
+.pn { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #060d19; color: var(--fg); }
+.pn::backdrop { background: rgba(2, 6, 12, .6); }
+.pn-sc { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: #24476f transparent; }
+.pn-bar { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 10px var(--gut); padding-right: var(--gut-r); background: rgba(6, 13, 25, .96); border-bottom: 1px solid var(--rule); }
+.pn-k { display: inline-flex; align-items: center; gap: 12px; margin-right: auto; font: 600 20px/1.1 var(--f-display); }
+.pn-k .fi { width: 40px; height: 40px; border-radius: 12px; }
+.pn-k .fi .ico { width: 20px; height: 20px; }
+.pn-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.pn-x .ico { width: 16px; height: 16px; }
+.pn-wrap { max-width: 1080px; margin: 0 auto; padding: 28px var(--gut) 64px; padding-right: var(--gut-r); display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 36px; align-items: start; }
+.pn-nav { position: sticky; top: calc(var(--pn-top, 60px) + 16px); display: grid; gap: 2px; }
+.pn-nav a { padding: 8px 10px; border-left: 2px solid transparent; border-radius: 0 8px 8px 0; font: 500 13px/1.3 var(--f-mono); color: var(--mute); text-decoration: none; transition: color .2s, border-color .2s, background-color .2s; }
+.pn-nav a:hover, .pn-nav a.on { color: var(--fg); border-left-color: var(--cyan); background: rgba(57, 213, 245, .06); }
+.pn-main { display: grid; gap: 40px; min-width: 0; }
+.pn-intro { display: grid; gap: 12px; justify-items: start; }
+.pn-h { margin: 0; font: 600 clamp(30px, 4vw, 44px)/1.08 var(--f-display); letter-spacing: -.015em; }
+.pn-h span { color: var(--cyan); }
+.pn-lead { margin: 0; font-size: 18px; line-height: 1.5; color: #b8c7d9; max-width: 60ch; }
+.pn-body { display: grid; gap: 40px; }
+.pn-s { scroll-margin-top: calc(var(--pn-top, 60px) + 16px); }
+.pn-s h3 { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; font: 600 clamp(21px, 2.4vw, 26px)/1.15 var(--f-display); }
+.pn-s h3::before { content: ""; flex: 0 0 auto; width: 22px; height: 3px; border-radius: 2px; background: var(--cyan); }
+.pn-s p { margin: 0 0 12px; max-width: 68ch; font-size: 16px; line-height: 1.55; color: #c9d6e3; }
+.pn-s .pn-plan, .pn-s .pn-ex { font: 500 13px/1.5 var(--f-mono); color: #9fc3dc; }
+.pn-who, .pn-get, .pn-pain, .pn-link, .pn-st, .pn-steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.pn-who li { display: grid; grid-template-columns: minmax(150px, 230px) minmax(0, 1fr); gap: 6px 18px; padding: 10px 0; border-top: 1px solid var(--rule); }
+.pn-who b { font: 600 15px/1.35 var(--f-display); }
+.pn-who span { font-size: 15px; line-height: 1.5; color: var(--mute); }
+.pn-steps { counter-reset: step; gap: 12px; }
+.pn-steps li { counter-increment: step; position: relative; min-height: 32px; padding-left: 46px; font-size: 15.5px; line-height: 1.55; color: #c9d6e3; }
+.pn-steps li::before { content: counter(step); position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid rgba(57, 213, 245, .5); color: var(--cyan); font: 600 13px/1 var(--f-mono); }
+.pn-steps b, .pn-fn dt, .pn-link b, .pn-who b { color: var(--fg); }
+.pn-fn { margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
+.pn-fn > div { padding: 14px 16px; border: 1px solid var(--rule); border-radius: 14px; background: rgba(13, 27, 46, .5); }
+.pn-fn dt { margin-bottom: 6px; font: 600 15.5px/1.3 var(--f-display); }
+.pn-fn dd { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--mute); }
+.pn-get li, .pn-link li { position: relative; padding-left: 26px; font-size: 15px; line-height: 1.5; color: #c9d6e3; }
+.pn-get li::before { content: ""; position: absolute; left: 0; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: rgba(61, 220, 151, .14) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233ddc97' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='m6 12.5 4 4 8-9'/></svg>") center / 11px no-repeat; }
+.pn-link li::before { content: ""; position: absolute; left: 3px; top: 6px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--cyan); }
+.pn-pain li { padding: 12px 14px; border: 1px solid var(--rule); border-radius: 12px; background: rgba(13, 27, 46, .5); font-size: 15px; line-height: 1.55; color: #c9d6e3; }
+.pn-pain b { font: 600 11.5px/1.2 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--warn); }
+.pn-pain b + b, .pn-pain b:nth-of-type(2) { color: var(--ok); }
+.pn-st li { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 15px; line-height: 1.5; color: #c9d6e3; }
+.pn .q summary { font-size: 16px; }
+.pn-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.pn-np { display: flex; flex-wrap: wrap; gap: 8px; }
+@media (max-width: 860px) {
+  .pn-wrap { grid-template-columns: minmax(0, 1fr); gap: 18px; padding-top: 18px; }
+  .pn-nav { position: static; display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .pn-nav a { flex: 0 0 auto; border: 1px solid var(--rule); border-radius: 999px; white-space: nowrap; }
+  .pn-nav a:hover, .pn-nav a.on { border-color: var(--cyan); }
+  .pn-who li { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+@media (max-width: 599px) {
+  .pn-bar { gap: 8px 10px; padding-left: 12px; padding-right: 12px; }
+  .pn-k { font-size: 17px; }
+  .pn-k .fi { width: 34px; height: 34px; }
+  .pn-acts .btn { min-height: 34px; padding: 6px 10px; font-size: 12.5px; }
+  .pn-k { order: 0; } .pn-x { order: 1; margin-left: auto; } .pn-acts { order: 2; width: 100%; }
+  .pn-bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+  .pn-acts { grid-column: 1 / -1; }
+  .pn-x span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .pn-x { min-width: 40px; justify-content: center; padding: 6px 8px; }
+  .pn-s h3 { gap: 10px; }
+}
+.calm-motion .pn-nav a, .calm-motion .mg-all { transition: none; }
+
 /* ---------- clarity and motion: labels, tiles, reveals ---------- */
 .seg-src { margin-left: 4px; padding: 4px 9px; border: 1px solid var(--rule); border-radius: 999px; font: 500 10.5px/1 var(--f-mono); letter-spacing: .04em; color: var(--mute); white-space: nowrap; }
 @media (max-width: 599px) { .seg-src { display: none; } }
@@ -1225,19 +1297,19 @@ a.btn { text-decoration: none; }
   </section>
   <section class="s" id="modulos">
     <h2>Tudo da obra, módulo por módulo.</h2>
-    <p class="lead">Cada módulo tem um filme curto: a tela, dois detalhes e tudo o que você faz nele. O que ainda está em implantação aparece marcado no fim.</p>
+    <p class="lead">Cada módulo tem um filme curto e, em "Ver tudo", a explicação completa: o que é, para quem, passo a passo, todas as funções, o que resolve e perguntas comuns. O que ainda está em implantação aparece marcado em cada um.</p>
     <ul class="mg">
-      <li><button class="fb mg-b" type="button" data-m="obras" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-building"/></svg></span><span><b>Obras</b><small>Quadro das obras e alertas</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-m="agenda" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-cal"/></svg></span><span><b>Agenda</b><small>Compromissos, equipe e local</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-m="ponto" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-clock"/></svg></span><span><b>Cartão Ponto</b><small>Horas por pessoa e obra</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-m="financeiro" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-money"/></svg></span><span><b>Financeiro</b><small>Contrato, recebimentos e custos</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-m="compras" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-bag"/></svg></span><span><b>Compras</b><small>Lista, compra e nota</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-m="orcamentos" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-file"/></svg></span><span><b>Orçamentos</b><small>Propostas dos seus modelos</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-m="projetos" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-folder"/></svg></span><span><b>Projetos</b><small>Arquivos por obra</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-m="fotos" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-camera"/></svg></span><span><b>Fotos e vídeos</b><small>Acervo visual da obra</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-m="automacao" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-bolt"/></svg></span><span><b>Automação</b><small>Rotinas e lembretes</small></span></button></li>
-      <li><button class="fb mg-b" type="button" data-info="checklist" aria-expanded="false" aria-controls="mg-checklist"><span class="fi"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Checklist</b><small>Tarefas com responsável e prazo</small></span></button><p class="mg-p" id="mg-checklist" hidden>Tarefas com responsável, prazo e quem executou. Funciona hoje.</p></li>
-      <li><button class="fb mg-b" type="button" data-info="pessoas" aria-expanded="false" aria-controls="mg-pessoas"><span class="fi"><svg class="ico"><use href="#i-users"/></svg></span><span><b>Pessoas</b><small>Equipe, clientes e fornecedores</small></span></button><p class="mg-p" id="mg-pessoas" hidden>Equipe, clientes e fornecedores no mesmo cadastro, ligados às obras. Funciona hoje.</p></li>
+      <li><button class="fb mg-b" type="button" data-m="obras" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-building"/></svg></span><span><b>Obras</b><small>Quadro das obras e alertas</small></span></button><button class="mg-all" type="button" data-p="obras" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Obras</button></li>
+      <li><button class="fb mg-b" type="button" data-m="agenda" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-cal"/></svg></span><span><b>Agenda</b><small>Compromissos, equipe e local</small></span></button><button class="mg-all" type="button" data-p="agenda" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Agenda</button></li>
+      <li><button class="fb mg-b" type="button" data-m="ponto" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-clock"/></svg></span><span><b>Cartão Ponto</b><small>Horas por pessoa e obra</small></span></button><button class="mg-all" type="button" data-p="ponto" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Cartão Ponto</button></li>
+      <li><button class="fb mg-b" type="button" data-m="financeiro" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-money"/></svg></span><span><b>Financeiro</b><small>Contrato, recebimentos e custos</small></span></button><button class="mg-all" type="button" data-p="financeiro" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Financeiro</button></li>
+      <li><button class="fb mg-b" type="button" data-m="compras" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-bag"/></svg></span><span><b>Compras</b><small>Lista, compra e nota</small></span></button><button class="mg-all" type="button" data-p="compras" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Compras</button></li>
+      <li><button class="fb mg-b" type="button" data-m="orcamentos" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-file"/></svg></span><span><b>Orçamentos</b><small>Propostas dos seus modelos</small></span></button><button class="mg-all" type="button" data-p="orcamentos" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Orçamentos</button></li>
+      <li><button class="fb mg-b" type="button" data-m="projetos" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-folder"/></svg></span><span><b>Projetos</b><small>Arquivos por obra</small></span></button><button class="mg-all" type="button" data-p="projetos" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Projetos</button></li>
+      <li><button class="fb mg-b" type="button" data-m="fotos" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-camera"/></svg></span><span><b>Fotos e vídeos</b><small>Acervo visual da obra</small></span></button><button class="mg-all" type="button" data-p="fotos" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Fotos e vídeos</button></li>
+      <li><button class="fb mg-b" type="button" data-m="automacao" aria-haspopup="dialog" aria-controls="seg"><span class="fi"><svg class="ico"><use href="#i-bolt"/></svg></span><span><b>Automação</b><small>Rotinas e lembretes</small></span></button><button class="mg-all" type="button" data-p="automacao" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Automação</button></li>
+      <li><button class="fb mg-b" type="button" data-p="checklist" aria-haspopup="dialog" aria-controls="pn"><span class="fi"><svg class="ico"><use href="#i-check"/></svg></span><span><b>Checklist</b><small>Tarefas com responsável e prazo</small></span></button><button class="mg-all" type="button" data-p="checklist" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Checklist</button></li>
+      <li><button class="fb mg-b" type="button" data-p="pessoas" aria-haspopup="dialog" aria-controls="pn"><span class="fi"><svg class="ico"><use href="#i-users"/></svg></span><span><b>Pessoas</b><small>Equipe, clientes e fornecedores</small></span></button><button class="mg-all" type="button" data-p="pessoas" aria-haspopup="dialog" aria-controls="pn">Ver tudo sobre Pessoas</button></li>
     </ul>
   </section>
   <section class="s" id="dia">
@@ -1936,6 +2008,907 @@ a.btn { text-decoration: none; }
  </div>
 </div>
 </template>
+<!-- everything about each module: nine sections per panel, written from the Codex dossiers (film/panels/) -->
+<template id="pn-obras"><div class="pn-m" data-m="obras">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>Obras é a porta de entrada do Prumo. Cada obra da sua empresa vira um cartão com cliente, endereço, datas, situação e dinheiro, e dentro dela ficam todas as áreas daquele serviço: Geral, Checklist, Fotos e vídeos, Materiais, Projetos, Financeiro e Equipe e contatos.</p>
+<p>Em vez de procurar em conversas e planilhas, você abre a obra e vê o estado dela inteiro, do prazo ao que ainda falta receber.</p>
+<p class="pn-plan"><b>Planos:</b> incluído em todos, inclusive no Gratuito.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (perfil Proprietário)</b><span>vê todas as obras, cria novas e decide quem acessa cada uma.</span></li>
+<li><b>Engenheiro ou mestre de obra (perfil Gestor)</b><span>acompanha as obras do dia a dia, abre os detalhes e mantém os cadastros em ordem. Não existe um perfil chamado "Mestre de obra": cadastre como Gestor ou como Colaborador, conforme a autonomia.</span></li>
+<li><b>Administrativo (perfil Financeiro)</b><span>consulta o resumo das obras e cuida dos valores de cada uma.</span></li>
+<li><b>Equipe de campo (perfil Colaborador)</b><span>vê só as obras em que está escalada, com as tarefas e a agenda dela.</span></li>
+<li><b>Cliente (perfil Cliente)</b><span>vê somente a obra dele e os documentos que você publicar.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo com a obra fictícia Residencial Horizonte [DEMO].</p>
+<ol class="pn-steps">
+<li>Abra <b>Obras</b> e toque em <b>Nova obra</b>. Informe o nome (Residencial Horizonte), o cliente, o endereço, o acesso (como a senha da porta, se houver), a data de início e o prazo de entrega.</li>
+<li>A obra aparece como um cartão <b>Em andamento</b>, com o total a receber e o já recebido. Os contadores do topo mostram quantas obras estão ativas, com atenção e urgentes.</li>
+<li>Entre no cartão. A aba <b>Geral</b> resume dias de obra, percentual do checklist, recebimentos e custos registrados.</li>
+<li>Use as áreas da obra: crie as tarefas no Checklist, a lista no Materiais, guarde fotos e projetos e registre o contrato no Financeiro.</li>
+<li>Quando a pergunta chegar ("e a elétrica?"), responda pela obra: o que está pendente, quem faz e até quando.</li>
+<li>No fim, marque a obra como concluída. Ela sai das ativas e vai para as antigas, com todo o histórico guardado.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Cadastro da obra</dt><dd>Nome, cliente, endereço, acesso, início e prazo de entrega. Use no primeiro dia e sempre que o prazo mudar.</dd></div>
+<div><dt>Cartão da obra</dt><dd>Situação (em andamento ou concluída), total a receber, já recebido, pagamento, margem sobre o contratado e progresso abaixo ou dentro do prazo. É a leitura de 5 segundos antes de ligar para alguém.</dd></div>
+<div><dt>Contadores: ativas, com atenção e urgentes</dt><dd>Mostram quantas obras pedem ação hoje. Comece o dia por aqui.</dd></div>
+<div><dt>Alertas</dt><dd>Prazo apertado, materiais pendentes e aprovações em aberto aparecem no cartão, sem você precisar conferir módulo por módulo.</dd></div>
+<div><dt>Aba Geral</dt><dd>Dias de obra, percentual de tarefas concluídas, recebimentos e custos. Use para preparar uma resposta ao cliente ou uma reunião.</dd></div>
+<div><dt>Áreas da obra</dt><dd>Checklist, Fotos e vídeos, Materiais, Projetos, Financeiro e Equipe e contatos, tudo ligado àquela obra. Cada área tem o próprio módulo neste site.</dd></div>
+<div><dt>Busca por nome</dt><dd>Encontre a obra digitando parte do nome, útil quando há várias ativas.</dd></div>
+<div><dt>Obras concluídas</dt><dd>Separadas das ativas. Continuam consultáveis, com fotos, financeiro e documentos.</dd></div>
+<div><dt>Dossiê da obra</dt><dd>Abra ou baixe o dossiê em PDF com os registros disponíveis da obra (nos planos Profissional e Business).</dd></div>
+<div><dt>Aviso honesto de progresso</dt><dd>O percentual é do checklist, não medição física da obra. O Prumo diz isso na própria tela e mostra "Faltam dados para calcular" quando falta cadastro, em vez de inventar um número.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>Um quadro de todas as obras, com os contadores do dia.</li>
+<li>O cartão de cada obra com dinheiro, pagamento e alertas.</li>
+<li>O resumo Geral de cada obra, pronto para responder ao cliente.</li>
+<li>O dossiê da obra em PDF, com os registros de cada módulo (Profissional e Business).</li>
+<li>O histórico completo das obras concluídas.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> "e a elétrica??" chega no WhatsApp e você precisa lembrar qual obra, achar a foto e perguntar ao mestre. <b>No Prumo:</b> abre a obra e responde com o que está registrado.</li>
+<li><b>Hoje:</b> cada obra tem uma planilha, um grupo e um caderno. <b>No Prumo:</b> uma obra, um lugar, todas as áreas dentro.</li>
+<li><b>Hoje:</b> não se sabe quantas obras estão atrasadas sem ligar para cada equipe. <b>No Prumo:</b> os contadores e os alertas dizem na hora.</li>
+<li><b>Hoje:</b> a obra terminada some junto com as informações. <b>No Prumo:</b> ela vai para as concluídas, com o histórico inteiro.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Checklist:</b> as tarefas da obra alimentam o percentual e os alertas de atenção.</li>
+<li><b>Materiais:</b> itens a comprar aparecem como "materiais pendentes" no cartão.</li>
+<li><b>Financeiro:</b> contrato, recebimentos e custos da obra viram o "a receber" e o "recebido" do cartão.</li>
+<li><b>Agenda:</b> todo compromisso é ligado a uma obra cadastrada.</li>
+<li><b>Cartão Ponto:</b> as horas são registradas por obra, e o custo da equipe entra no financeiro dela.</li>
+<li><b>Orçamentos:</b> um orçamento aceito pode criar a obra nova ou um aditivo numa obra existente, já com o checklist dos serviços.</li>
+<li><b>Fotos, vídeos e Projetos:</b> ficam dentro da obra, ao lado das tarefas.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>Quantas obras posso cadastrar?</summary><p>Não há limite de obras configurado nos planos. O que muda entre os planos é o número de pessoas e os módulos liberados.</p></details>
+<details class="q"><summary>O percentual de progresso é a medição física da obra?</summary><p>Não. É a parte do checklist concluída. O Prumo avisa isso na tela para ninguém confundir tarefas marcadas com avanço físico.</p></details>
+<details class="q"><summary>O Prumo avisa sozinho que uma obra vai atrasar?</summary><p>Ainda não. Os alertas são de prazo, materiais pendentes e aprovações; previsão automática de atraso ou de estouro de custo não existe.</p></details>
+<details class="q"><summary>O cliente vê a obra dele?</summary><p>Sim, com o perfil Cliente: ele vê somente a obra e os documentos que você publicar para ele, sem acesso ao resto da empresa.</p></details>
+<details class="q"><summary>Posso reabrir uma obra concluída?</summary><p>A obra concluída continua consultável com todo o histórico. Como reabrir é um caso raro, mostramos isso na demonstração.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st dev">em implantação</span><span>Histórico do WhatsApp dentro da obra: o botão existe na tela, mas o canal ainda não está ativo.</span></li>
+<li><span class="st nc">ainda não</span><span>Previsão automática de atraso e de estouro de custo.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-agenda"><div class="pn-m" data-m="agenda">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>A Agenda é o calendário de todas as obras da empresa. Cada compromisso tem obra, serviço, horário, equipe escalada e ponto de encontro, e o Prumo avisa quando dois compromissos brigam pelo mesmo horário.</p>
+<p>É a resposta para "quem vai à obra amanhã, a que horas e onde se encontra?", sem precisar perguntar no grupo.</p>
+<p class="pn-plan"><b>Planos:</b> incluída em todos, inclusive no Gratuito.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>vê a agenda da empresa inteira, por mês, semana ou dia.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>cria os compromissos, escala a equipe e resolve os conflitos de horário.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>consulta o calendário para preparar visitas, entregas e cobranças.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>vê os compromissos em que foi escalada, com endereço e horário de chegada.</span></li>
+<li><b>Cliente</b><span>não vê a agenda interna; você combina a visita com ele e registra aqui.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo: vistoria na Clínica Ipê [DEMO] na sexta às 14h.</p>
+<ol class="pn-steps">
+<li>Abra <b>Agenda</b> e toque em <b>Novo compromisso</b> (ou em <b>Adicionar compromisso neste dia</b> no calendário).</li>
+<li>Escolha a obra cadastrada (ou marque "não se aplica" para um compromisso administrativo), descreva o serviço ("vistoria da elétrica") e defina data, horário de chegada e saída, ou "dia inteiro".</li>
+<li>Em <b>Quem vai?</b>, escale a equipe entre as pessoas cadastradas. O Prumo lembra quem já tem outro compromisso no mesmo horário.</li>
+<li>Confirme o endereço: o da obra vem preenchido, e você pode trocar pelo ponto de encontro ("portão da rua de trás").</li>
+<li>Salve. Os contadores do período mostram quantos compromissos existem, quantos estão confirmados, quantos faltam planejar e os conflitos.</li>
+<li>Na manhã seguinte, abra a visão <b>Dia</b>: o dia selecionado mostra cada compromisso com equipe, horário e término previsto. Se a vistoria se repetir, use <b>Copiar para outra data</b>.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Compromisso por obra</dt><dd>Todo compromisso nasce ligado a uma obra cadastrada, ou marcado como "não se aplica" quando é da empresa. Assim a agenda de cada obra fica completa.</dd></div>
+<div><dt>Serviço, horário e término previsto</dt><dd>Descrição do serviço, chegada prevista, saída e opção de dia inteiro. O Prumo calcula o término e aponta "possível conflito" quando falta horário ou duração.</dd></div>
+<div><dt>Equipe escalada ("Quem vai?")</dt><dd>Escolha as pessoas cadastradas em Pessoas e Equipes. A escala vale para o dia e aparece no detalhe do compromisso.</dd></div>
+<div><dt>Endereço e ponto de encontro</dt><dd>O endereço da obra vem preenchido; ajuste para esta programação quando o encontro é em outro lugar.</dd></div>
+<div><dt>Visões por mês, semana e dia</dt><dd>Troque a visão conforme a pergunta: o mês para planejar, o dia para executar.</dd></div>
+<div><dt>Contadores do período</dt><dd>No período, confirmados, a planejar e conflitos. Um olhar diz se a semana está fechada.</dd></div>
+<div><dt>Filtro da agenda</dt><dd>Filtre por obra ou situação e limpe os filtros com um toque.</dd></div>
+<div><dt>Copiar para outra data</dt><dd>Repita um compromisso recorrente sem redigitar equipe e endereço.</dd></div>
+<div><dt>Folga</dt><dd>Marque folga num dia; o Prumo considera isso nos lembretes e não escala ninguém ali por engano.</dd></div>
+<div><dt>Situações</dt><dd>Em planejamento, confirmado, a conferir. A situação muda conforme você confirma com a equipe.</dd></div>
+<div><dt>Dia selecionado em detalhe</dt><dd>Para o dia escolhido, cada compromisso aparece com obra, serviço, equipe, horário e término previsto.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>O calendário da empresa, com a agenda de cada obra dentro.</li>
+<li>Os contadores do período: no período, confirmados, a planejar e conflitos.</li>
+<li>O detalhe de cada dia, com equipe, endereço e término previsto.</li>
+<li>Alerta de conflito de horário entre compromissos e pessoas.</li>
+<li>Histórico dos avisos enviados por compromisso, quando o canal estiver ativo.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> "14h? 15h?" no grupo, e a equipe chega em horários diferentes. <b>No Prumo:</b> horário, chegada e término no compromisso, visível para quem foi escalado.</li>
+<li><b>Hoje:</b> duas obras marcadas para a mesma equipe no mesmo dia. <b>No Prumo:</b> o conflito aparece no contador antes de virar problema.</li>
+<li><b>Hoje:</b> o endereço do encontro fica numa mensagem perdida. <b>No Prumo:</b> está no compromisso, junto com a obra.</li>
+<li><b>Hoje:</b> a agenda está só na cabeça de uma pessoa. <b>No Prumo:</b> qualquer gestor consulta a semana inteira.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> cada compromisso é de uma obra cadastrada; a obra mostra a agenda dela.</li>
+<li><b>Pessoas e Equipes:</b> a escala usa o cadastro das pessoas e aponta quem está sem vínculo confirmado.</li>
+<li><b>Cartão Ponto:</b> a pessoa escalada registra as horas naquela obra no dia do compromisso.</li>
+<li><b>Automação:</b> rotinas como "lembre minha agenda todos os dias às 7h30" leem a Agenda e podem ser editadas a partir dela.</li>
+<li><b>WhatsApp:</b> os avisos e destinatários de cada compromisso existem na tela, mas o envio está bloqueado até o canal ser homologado.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>A Agenda avisa a equipe pelo WhatsApp?</summary><p>Ainda não. A tela de avisos e destinatários existe, mas o envio está bloqueado até o canal do WhatsApp ser homologado. Hoje, quem foi escalado vê o compromisso no próprio Prumo.</p></details>
+<details class="q"><summary>Funciona com o Google Agenda?</summary><p>A Agenda do Prumo funciona por conta própria. Existe a opção "Abrir no Google", mas a sincronização automática ainda não foi confirmada.</p></details>
+<details class="q"><summary>Posso marcar um compromisso sem obra?</summary><p>Sim: marque "não se aplica" para compromissos administrativos. Para serviços, a obra cadastrada é obrigatória, e isso mantém a agenda de cada obra completa.</p></details>
+<details class="q"><summary>Como registro a folga da equipe?</summary><p>No dia, use "Marcar folga neste dia". O Prumo considera a folga nos lembretes.</p></details>
+<details class="q"><summary>O que é um "possível conflito"?</summary><p>Um compromisso sem horário ou sem duração, ou duas programações da mesma pessoa no mesmo período. O contador de conflitos aponta e você ajusta.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st dev">em implantação</span><span>Notificações externas: avisos da Agenda pelo WhatsApp (envio bloqueado até a homologação do canal).</span></li>
+<li><span class="st dev">em implantação</span><span>Sincronização com o Google Agenda.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-ponto"><div class="pn-m" data-m="ponto">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>O Cartão Ponto registra as horas de cada pessoa da equipe, por obra, com entrada, intervalo e saída. Com o salário cadastrado, as horas viram custo de mão de obra do mês e de cada obra.</p>
+<p>É o módulo "Pessoas e horas" dos planos: um espelho mensal honesto, feito das marcações que a sua equipe registra.</p>
+<p class="pn-plan"><b>Planos:</b> Fundador, Profissional e Business (módulo Pessoas e horas).</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>vê as horas e o custo da equipe inteira, mês a mês.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>registra e corrige horários, cadastra funcionários e confere quem trabalhou em qual obra.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>usa as horas confirmadas para o custo da obra e baixa o PDF de horas e valores.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>vê o próprio ponto atribuído.</span></li>
+<li><b>Cliente</b><span>não tem acesso ao ponto.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo: outubro de 2026 na Residencial Horizonte [DEMO], com Ana, Bruno e Gabriel Exemplo.</p>
+<ol class="pn-steps">
+<li>Abra <b>Cartão Ponto</b>. Escolha o mês e, se quiser, uma pessoa; "Toda a equipe" mostra todos.</li>
+<li>Se alguém ainda não está cadastrado, toque em <b>Cadastrar funcionário</b> e informe nome, função e salário ou horas previstas. Sem salário, o Prumo avisa "há horas sem salário" e não calcula custo.</li>
+<li>Toque em <b>Registrar horário</b>: pessoa, data e horário (no fuso de Blumenau), obra e serviço executado. Marque entrada, saída para intervalo, retorno e saída.</li>
+<li>Errou um horário? Use <b>Corrigir horário</b> e descreva o motivo. As horas são recalculadas e a marcação original fica no histórico. Marcações duplicadas são apontadas na hora.</li>
+<li>No fim do mês, veja <b>Horas no mês</b> por pessoa (jornadas abertas não entram no gráfico) e o <b>Custo do mês</b> calculado.</li>
+<li>Toque em <b>Baixar PDF de horas e valores</b> para fechar o mês com a equipe ou com o contador.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Marcações da jornada</dt><dd>Entrada, saída para intervalo, retorno do intervalo e saída, por pessoa, data e obra, com o serviço executado.</dd></div>
+<div><dt>Filtro por mês e por pessoa</dt><dd>Escolha o mês e uma pessoa ou toda a equipe. Mês anterior e próximo mês num toque.</dd></div>
+<div><dt>Cadastro de funcionário</dt><dd>Nome, função, salário ou horas previstas. O salário é o que transforma horas em custo.</dd></div>
+<div><dt>Horas confirmadas por pessoa</dt><dd>Gráfico mensal com as jornadas fechadas de cada funcionário; jornadas abertas ficam de fora até a saída ser registrada.</dd></div>
+<div><dt>Custo do mês e estimativa</dt><dd>Custo calculado a partir das horas e do salário; estimativa por mês para quem tem horas previstas.</dd></div>
+<div><dt>Correção com motivo</dt><dd>Corrija um horário informando o motivo (registro incorreto ou outro). A marcação original fica guardada no histórico.</dd></div>
+<div><dt>Exclusão com motivo</dt><dd>Exclua uma marcação dizendo por quê. Nada some sem rastro.</dd></div>
+<div><dt>Marcação duplicada</dt><dd>O Prumo avisa quando a mesma marcação é registrada duas vezes.</dd></div>
+<div><dt>Serviços registrados</dt><dd>Veja horários e serviços de cada pessoa no mês, inclusive as execuções atribuídas no checklist.</dd></div>
+<div><dt>PDF de horas e valores</dt><dd>Espelho do mês com horas e valores, por pessoa, para fechar com a equipe ou enviar ao contador.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>O espelho de horas do mês, por pessoa e por obra.</li>
+<li>O custo de mão de obra do mês, calculado das horas e do salário.</li>
+<li>O PDF de horas e valores.</li>
+<li>O histórico de correções e exclusões, com motivo.</li>
+<li>O custo da equipe dentro do Financeiro de cada obra.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> horas anotadas em caderno ou no grupo, e no fim do mês ninguém fecha a conta. <b>No Prumo:</b> cada marcação com pessoa, obra e horário.</li>
+<li><b>Hoje:</b> o custo da mão de obra por obra é um chute. <b>No Prumo:</b> horas × salário, obra por obra.</li>
+<li><b>Hoje:</b> correção de horário vira discussão. <b>No Prumo:</b> correção com motivo e a marcação original no histórico.</li>
+<li><b>Hoje:</b> "equipe parada" sem registro. <b>No Prumo:</b> jornadas abertas e fechadas visíveis no mês.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Pessoas e Equipes:</b> os funcionários do ponto são as pessoas cadastradas lá, com função e salário.</li>
+<li><b>Obras:</b> cada marcação é de uma obra; as horas aparecem na obra certa.</li>
+<li><b>Financeiro:</b> o custo da equipe (horas × remuneração) entra nos custos da obra e do mês; o Prumo evita somar duas vezes quando há despesa lançada à parte.</li>
+<li><b>Checklist:</b> os serviços executados por cada pessoa no mês aparecem no ponto dela.</li>
+<li><b>Agenda:</b> a escala do compromisso diz quem deveria estar na obra naquele dia.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>O funcionário bate o ponto pelo celular?</summary><p>O registro é feito no Prumo, pelo gestor ou pela própria pessoa com acesso, no navegador ou no app instalável. Não há validação por GPS nem biometria.</p></details>
+<details class="q"><summary>Serve como ponto eletrônico legal (REP)?</summary><p>Não. É um registro interno de horas para controle de custo e de obra. Não foi homologado como ponto eletrônico para fins trabalhistas.</p></details>
+<details class="q"><summary>E se alguém esquecer de registrar a saída?</summary><p>A jornada fica aberta e não entra no gráfico de horas confirmadas até ser corrigida. Use "Corrigir horário" com o motivo.</p></details>
+<details class="q"><summary>Posso fechar o mês com o contador?</summary><p>Sim: baixe o PDF de horas e valores. O Prumo não gera folha de pagamento nem eSocial.</p></details>
+<details class="q"><summary>O custo da equipe entra no financeiro da obra?</summary><p>Sim. As horas confirmadas viram custo da obra no mês. Se você lançar a mesma despesa à parte, o Prumo avisa para escolher uma das duas e não duplicar.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st nc">ainda não</span><span>Validação por GPS, biometria ou relógio de ponto homologado.</span></li>
+<li><span class="st nc">ainda não</span><span>Folha de pagamento, eSocial ou obrigações trabalhistas.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-financeiro"><div class="pn-m" data-m="financeiro">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>O Financeiro registra o dinheiro de cada obra e da empresa: contrato, aditivos, recebimentos e custos, com comprovante anexado e a situação de cada lançamento. Os totais mostram o que foi contratado, o que já entrou, o que falta receber e os custos registrados.</p>
+<p>É um financeiro operacional, de obra. Ele mostra a origem de cada valor, mas não substitui a contabilidade nem o banco.</p>
+<p class="pn-plan"><b>Planos:</b> Fundador, Profissional e Business.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>vê o resultado parcial de cada obra e o acumulado da empresa no período.</span></li>
+<li><b>Administrativo (perfil Financeiro)</b><span>registra contratos, recebimentos e custos, anexa comprovantes e confere divergências.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>registra aditivos e custos da obra que acompanha.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>não acessa o financeiro.</span></li>
+<li><b>Cliente</b><span>vê somente os documentos financeiros que você publicar para ele.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo com a Residencial Horizonte [DEMO]: contrato de R$ 24.000, aditivo de R$ 1.800 e uma parcela de R$ 8.000.</p>
+<ol class="pn-steps">
+<li>Abra a obra e entre em <b>Financeiro</b>. Registre o <b>contrato</b> (R$ 24.000) com o documento anexado.</li>
+<li>O cliente pediu um ponto de luz a mais na varanda. Registre o <b>aditivo</b> (R$ 1.800): ele fica "em análise" até a aprovação e o Prumo pergunta se o valor já está no contrato atual, para não contar duas vezes.</li>
+<li>A parcela caiu na conta: registre o <b>recebimento</b> (R$ 8.000) e marque "conferi que esse valor entrou na conta". A situação passa a "recebido".</li>
+<li>Comprou material ou pagou um terceiro? Registre o <b>custo</b> na categoria certa (material, terceiro, combustível, equipe por dia) e anexe a nota.</li>
+<li>Os totais da obra se atualizam: contrato total, a receber, acumulado até hoje e custos registrados.</li>
+<li>No <b>Financeiro da empresa</b>, escolha o período e confira entradas, custos por categoria e resultado parcial de todas as obras, abrindo a origem de cada valor.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Contrato da obra</dt><dd>Valor contratado com o documento anexado. É a base de todos os totais.</dd></div>
+<div><dt>Aditivos</dt><dd>Serviços adicionais aprovados, com edição e aprovação registrada ("aprovado por"). A tela avisa que aprovar um aditivo não é receber.</dd></div>
+<div><dt>Recebimentos</dt><dd>Parcelas e pagamentos com data, valor e comprovante. Marque quando conferir a entrada na conta.</dd></div>
+<div><dt>Custos por categoria</dt><dd>Material, terceiro, combustível, equipe por dia e outros, com nota ou comprovante. Custos conhecidos; não representam o avanço físico.</dd></div>
+<div><dt>Situação de cada lançamento</dt><dd>Em análise, aguardando aprovação ou conferência, registrado, recebido. Nada entra nos totais sem situação clara.</dd></div>
+<div><dt>Comprovantes e notas fiscais</dt><dd>Anexe o documento e abra o original quando precisar conferir.</dd></div>
+<div><dt>Totais da obra</dt><dd>Contrato total (com aditivos aprovados), a receber, acumulado até hoje, custos registrados e resultado parcial.</dd></div>
+<div><dt>Financeiro da empresa</dt><dd>Todas as obras somadas no período escolhido: entradas, custos e resultado parcial, com a origem de cada valor a um toque.</dd></div>
+<div><dt>Conferir divergência</dt><dd>Quando um valor não bate com o contrato ou com o que foi combinado, o Prumo aponta para você conferir.</dd></div>
+<div><dt>Cobrança final e abatimento combinado</dt><dd>Registre a cobrança final da obra e abatimentos acertados com o cliente.</dd></div>
+<div><dt>Ligações diretas</dt><dd>Botões para abrir o Cartão Ponto, os Materiais e o Orçamento da mesma obra, porque o custo de horas, as compras e a proposta aceita alimentam o financeiro.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>A lista de lançamentos de cada obra, com situação e comprovante.</li>
+<li>Os totais da obra: contratado, recebido, a receber, custos e resultado parcial.</li>
+<li>O acumulado da empresa por período, por categoria de custo.</li>
+<li>O rastro de aprovação dos aditivos e das conferências.</li>
+<li>Os comprovantes guardados na obra certa.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> um recibo de R$ 540 sem obra, numa foto no WhatsApp. <b>No Prumo:</b> o custo lançado na obra, com a nota anexada.</li>
+<li><b>Hoje:</b> o aditivo foi combinado por mensagem e ninguém lembra se já foi cobrado. <b>No Prumo:</b> aditivo com situação, aprovação e valor no contrato total.</li>
+<li><b>Hoje:</b> a margem da obra é descoberta no fim. <b>No Prumo:</b> contratado, recebido e custos na mesma tela, a qualquer momento.</li>
+<li><b>Hoje:</b> o custo de mão de obra fica fora da conta. <b>No Prumo:</b> as horas do Cartão Ponto entram no custo da obra.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> o "a receber" e o "recebido" do cartão da obra vêm daqui.</li>
+<li><b>Orçamentos:</b> a proposta aceita entra no financeiro como contrato ou aditivo.</li>
+<li><b>Materiais:</b> compras marcadas com "cobrar o valor da nota" ou "com acréscimo" viram cobranças em aberto; "incluso no contrato" não gera cobrança.</li>
+<li><b>Cartão Ponto:</b> horas × remuneração entram como custo de equipe; o Prumo pede para escolher entre horas e despesa quando as duas existem, para não duplicar.</li>
+<li><b>Projetos e documentos:</b> comprovantes, notas e contratos ficam nos documentos da obra.</li>
+<li><b>Relatórios e dossiê:</b> os valores aparecem no dossiê da obra.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>Substitui a contabilidade?</summary><p>Não. É um financeiro operacional: mostra o que foi contratado, recebido e gasto por obra. Não faz escrituração, impostos, folha nem conciliação bancária.</p></details>
+<details class="q"><summary>O Prumo cobra o meu cliente?</summary><p>Não. Você registra recebimentos e cobranças; o pagamento acontece fora, como hoje. A cobrança online pelo Mercado Pago em homologação é da assinatura do próprio Prumo.</p></details>
+<details class="q"><summary>Aprovar um aditivo conta como dinheiro recebido?</summary><p>Não. O aditivo aprovado entra no contrato total; só o recebimento registrado e conferido entra no "recebido". A tela avisa isso.</p></details>
+<details class="q"><summary>Como evito contar um custo duas vezes?</summary><p>O Prumo pede para escolher entre despesa e compra, ou entre despesa e horas, quando os dois registros existem para a mesma coisa.</p></details>
+<details class="q"><summary>Quem pode ver os valores?</summary><p>Proprietário, Financeiro e Gestor conforme o perfil. Colaborador não vê o financeiro; o Cliente vê só o que você publicar.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st hom">em homologação</span><span>Cobrança da assinatura do Prumo pelo Mercado Pago (não afeta os seus recebimentos).</span></li>
+<li><span class="st nc">ainda não</span><span>Conciliação bancária, escrituração contábil e impostos.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-compras"><div class="pn-m" data-m="compras">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>Compras reúne os Materiais de cada obra e a pesquisa de preços. A lista diz o que falta comprar, quanto, em que unidade e como será cobrado; a compra é marcada com a nota anexada; e a pesquisa encontra produtos perto da pessoa com os melhores preços, recurso que está em implantação.</p>
+<p>O objetivo é simples: nada falta de surpresa, nenhuma compra é feita duas vezes e cada nota vai para a obra certa.</p>
+<p class="pn-plan"><b>Planos:</b> Materiais em todos, inclusive no Gratuito; Compras (pesquisa de preços) do Fundador em diante.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>vê o que está pendente em todas as obras e as cobranças em aberto.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>monta a lista, marca as compras e anexa as notas.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>confere as notas e define como cada material é cobrado do cliente.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>consulta a lista da obra em que está para saber o que chega e o que falta.</span></li>
+<li><b>Cliente</b><span>não vê a lista; recebe só o que você decidir cobrar e publicar.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo com a Residencial Horizonte [DEMO]: faltam 80 m de cabo flexível de 2,5 mm.</p>
+<ol class="pn-steps">
+<li>Abra a obra e entre em <b>Materiais</b>. Toque em <b>Adicionar material</b>: "Cabo flexível 2,5 mm", quantidade necessária 200, unidade metros. Você pode digitar, falar a lista ou importar um PDF, Excel ou imagem (a análise local organiza; a leitura por IA está em homologação).</li>
+<li>Responda <b>Como este material será cobrado?</b>: incluso no contrato, cobrar o valor da nota, cobrar com acréscimo ou definir depois.</li>
+<li>A lista se organiza em <b>A comprar</b>, <b>Comprados e notas</b> e <b>Precisam de preço</b>. O item do cabo mostra "80 faltando · 200 necessários".</li>
+<li>Comprou? Toque em <b>Marcar compra</b>, informe a quantidade comprada, a data e o custo, e use <b>Anexar nota</b> com a foto do cupom.</li>
+<li>Se o material está em cobrança, ele aparece em <b>Cobranças em aberto</b> e segue para o Financeiro da obra.</li>
+<li>Quer comparar preço antes de comprar? Em <b>Compras</b>, toque em <b>Pesquisar preços</b>, descreva o item e a cidade. Hoje a tela mostra lojas de exemplo [DEMO]; a pesquisa real está em implantação.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Lista por obra</dt><dd>Cada obra com a própria lista, separada em a comprar, comprados e notas e precisam de preço. Materiais sem obra ficam num grupo à parte.</dd></div>
+<div><dt>Quantidade necessária, comprada e pendente</dt><dd>O Prumo calcula o que ainda falta ("80 faltando de 200") e a unidade certa.</dd></div>
+<div><dt>Referência do material</dt><dd>Uma referência de exemplo para evitar comprar o item errado (a imagem de referência por IA está em homologação).</dd></div>
+<div><dt>Forma de cobrança</dt><dd>Incluso no contrato, cobrar o valor da nota, cobrar com acréscimo, já incluso no orçamento global ou definir depois. Decide o que vai para o cliente.</dd></div>
+<div><dt>Marcar compra</dt><dd>Quantidade comprada, data e custo da compra. O item sai de "a comprar".</dd></div>
+<div><dt>Anexar nota ou cupom</dt><dd>Foto ou arquivo da nota, guardado na obra e usado na cobrança e no financeiro.</dd></div>
+<div><dt>Editar e excluir item</dt><dd>Corrija quantidade, unidade ou cobrança sem sair da obra.</dd></div>
+<div><dt>Montar lista por texto, voz ou arquivo</dt><dd>Descreva o serviço, fale a lista ou importe PDF, Excel, CSV ou imagem. A análise local prepara a lista para a sua revisão; a leitura completa por IA está em homologação.</dd></div>
+<div><dt>Cobranças em aberto</dt><dd>Tudo que foi marcado para cobrar do cliente, com nota e situação, até ser lançado no financeiro.</dd></div>
+<div><dt>Pesquisar preços (Compras)</dt><dd>Descreva material, modelo, medida, quantidade e cidade; o Prumo compara loja, endereço, telefone, horário, preço e disponibilidade (retirada ou entrega) e deixa ligar, abrir a rota ou ver a oferta. Em implantação: hoje com lojas de exemplo [DEMO].</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>A lista de compras de cada obra, sempre atual.</li>
+<li>O que falta comprar, com quantidade e unidade.</li>
+<li>As notas e cupons guardados na obra.</li>
+<li>As cobranças em aberto para repassar ao cliente.</li>
+<li>Os materiais pendentes no cartão da obra.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> "comprar cabo!!" num post-it, sem quantidade. <b>No Prumo:</b> item, 200 m necessários, 80 faltando.</li>
+<li><b>Hoje:</b> a mesma compra feita duas vezes por duas pessoas. <b>No Prumo:</b> o item marcado como comprado sai da lista de todos.</li>
+<li><b>Hoje:</b> a nota se perde e não se sabe se foi cobrada do cliente. <b>No Prumo:</b> nota anexada e forma de cobrança definida.</li>
+<li><b>Hoje:</b> cotação por telefone, loja por loja. <b>No Prumo:</b> comparação numa tela só (em implantação).</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> os itens a comprar aparecem como materiais pendentes no cartão da obra.</li>
+<li><b>Financeiro:</b> compras cobradas viram cobranças e custos da obra; o Prumo evita duplicar quando a mesma despesa foi lançada à parte.</li>
+<li><b>Orçamentos:</b> materiais já inclusos no orçamento global são marcados assim, sem cobrança extra.</li>
+<li><b>Checklist:</b> a tarefa do serviço fica ao lado do material que ela consome.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>A pesquisa de preços já funciona?</summary><p>Está em implantação. A tela existe e mostra seis lojas de exemplo [DEMO] para você conhecer o fluxo; preço, estoque e contato reais das lojas ainda não estão ligados.</p></details>
+<details class="q"><summary>Posso mandar a lista em PDF ou foto?</summary><p>Sim. A análise local organiza o que conseguir ler e você revisa antes de adicionar. A leitura completa por IA de PDF, Excel e imagem está em homologação.</p></details>
+<details class="q"><summary>Como cobro o material do cliente?</summary><p>Defina a forma de cobrança no item: valor da nota, com acréscimo ou incluso no contrato. O que for cobrar aparece em "Cobranças em aberto" e segue para o Financeiro.</p></details>
+<details class="q"><summary>Tem controle de estoque?</summary><p>Não. A lista é por obra: necessário, comprado e pendente. Estoque de almoxarifado com QR code não existe.</p></details>
+<details class="q"><summary>Dá para fazer o pedido na loja pelo Prumo?</summary><p>Não. Quando a pesquisa estiver ativa, o Prumo mostra as opções e deixa ligar ou abrir a rota; a compra continua com você.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st dev">em implantação</span><span>Pesquisa real em lojas perto de você, com preço, estoque e contato (hoje, lojas de exemplo [DEMO]).</span></li>
+<li><span class="st hom">em homologação</span><span>Leitura completa de listas em PDF, Excel ou imagem por IA e a imagem de referência do material.</span></li>
+<li><span class="st nc">ainda não</span><span>Estoque com QR code e pedido automático na loja.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-orcamentos"><div class="pn-m" data-m="orcamentos">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>Orçamentos transforma o pedido do cliente numa proposta organizada, a partir dos seus próprios modelos. Você descreve o serviço (digitando, falando ou anexando arquivos), escolhe a obra e o modelo, confere serviços e valores e baixa o PDF.</p>
+<p>Quando o cliente aceita, o Prumo cria o checklist da obra com os serviços da proposta. A proposta vira trabalho sem redigitar nada.</p>
+<p class="pn-plan"><b>Planos:</b> Fundador, Profissional e Business.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>aprova valores e condições e mantém os modelos oficiais da empresa.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>monta a proposta a partir do atendimento e revisa os serviços.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>confere valores, desconto e condições antes de enviar e registra o aceite.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>não prepara orçamentos; recebe as tarefas quando a proposta é aceita.</span></li>
+<li><b>Cliente</b><span>recebe a proposta em PDF e, quando o canal estiver ativo, pelo WhatsApp.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo: proposta de iluminação para a Residencial Horizonte [DEMO], no modelo da sua empresa.</p>
+<ol class="pn-steps">
+<li>Abra <b>Orçamento</b>. Em <b>O que vamos orçar?</b>, escolha a obra (ou "ainda sem obra cadastrada") e o modelo: o padrão geral do Prumo ou um da sua biblioteca.</li>
+<li>Descreva o serviço: os ambientes, os pontos de luz, as quantidades e as condições. Pode gravar um áudio do atendimento ou anexar até oito arquivos (fotos, planta, lista).</li>
+<li>Toque em <b>Preparar revisão</b>. O Prumo organiza serviços, quantidades, valores e condições e marca o que precisa de conferência.</li>
+<li>Use <b>Editar serviços e valores</b>, aplique desconto, escolha valor fechado ou a definir e confira o total.</li>
+<li>Toque em <b>Gerar PDF no modelo oficial</b> e baixe a proposta. Os preços individuais só aparecem no PDF se você pedir.</li>
+<li>Cliente aceitou? Marque <b>Orçamento aceito</b> e <b>Registrar aceite e criar checklist</b>: escolha obra nova ou aditivo de uma obra existente, e os serviços viram tarefas.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Pedido por texto, áudio ou arquivos</dt><dd>Descreva o serviço, grave o atendimento ou anexe até oito arquivos por pedido. A transcrição do áudio e o rascunho por IA estão em homologação; o pedido fica guardado de qualquer forma.</dd></div>
+<div><dt>Obra e modelo</dt><dd>Ligue a proposta a uma obra cadastrada e escolha o modelo: padrão geral do Prumo ou um modelo da sua biblioteca.</dd></div>
+<div><dt>Preparar revisão</dt><dd>O Prumo organiza serviços, quantidades, valores e condições e marca "precisa de conferência" onde faltar informação. Nada sai sem a sua revisão.</dd></div>
+<div><dt>Editar serviços e valores</dt><dd>Ajuste cada serviço, aplique desconto e defina valor fechado ou a definir.</dd></div>
+<div><dt>Situação da proposta</dt><dd>Em preparação, pronta para revisão, precisa de conferência, aceita com checklist criado. Você sabe em que pé está cada orçamento.</dd></div>
+<div><dt>PDF no modelo oficial</dt><dd>Gere e baixe a proposta no formato da sua empresa, com ou sem preços individuais.</dd></div>
+<div><dt>Aceite e checklist</dt><dd>Registre o aceite do cliente e crie o checklist da obra com os serviços da proposta, numa obra nova ou como aditivo.</dd></div>
+<div><dt>Biblioteca de modelos</dt><dd>Crie, duplique, exclua e consulte as versões de cada modelo, com prévia do documento. O modelo ativo vale para as próximas propostas.</dd></div>
+<div><dt>Propostas antigas</dt><dd>Mostre ou oculte os orçamentos antigos e consulte o pedido original de cada um.</dd></div>
+<div><dt>Enviar ao cliente</dt><dd>O botão existe e usará o WhatsApp quando o canal estiver homologado. Hoje, envie o PDF como preferir.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>A proposta em PDF, no modelo da sua empresa.</li>
+<li>O registro de cada proposta, com situação e pedido original.</li>
+<li>A biblioteca de modelos, com versões e prévia.</li>
+<li>O checklist da obra criado a partir da proposta aceita.</li>
+<li>O contrato ou aditivo correspondente no Financeiro.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> "Re: Re: aditivo varanda" com três versões do orçamento por e-mail. <b>No Prumo:</b> uma proposta, com situação e versão do modelo.</li>
+<li><b>Hoje:</b> a planilha de orçamento é copiada da obra anterior e sobra item errado. <b>No Prumo:</b> modelo da empresa e revisão item a item.</li>
+<li><b>Hoje:</b> o cliente aceita e alguém redigita tudo como tarefas. <b>No Prumo:</b> o aceite cria o checklist.</li>
+<li><b>Hoje:</b> o atendimento foi por áudio e metade se perdeu. <b>No Prumo:</b> o áudio e os anexos ficam no pedido.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> a proposta aceita cria a obra nova ou um aditivo numa obra existente.</li>
+<li><b>Checklist:</b> os serviços da proposta viram tarefas, com prazo do serviço.</li>
+<li><b>Financeiro:</b> o valor aceito entra como contrato ou aditivo da obra.</li>
+<li><b>Materiais:</b> itens inclusos no orçamento global são marcados assim na lista de compras.</li>
+<li><b>Projetos:</b> a planta anexada ao pedido pode ser guardada nos projetos da obra.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>O Prumo faz o orçamento sozinho pela planta?</summary><p>Não. A IA em homologação pode preparar um rascunho a partir do que você descreve e anexa, sempre revisado por você. Orçamento automático pela planta, sem revisão, não existe.</p></details>
+<details class="q"><summary>Posso usar o meu modelo de proposta?</summary><p>Sim. Crie o modelo na biblioteca com nome, finalidade, estrutura e regras; ele ganha versões e prévia. O padrão geral do Prumo fica disponível como alternativa.</p></details>
+<details class="q"><summary>O cliente recebe pelo WhatsApp?</summary><p>Ainda não: o envio pelo WhatsApp está em implantação. Hoje você baixa o PDF e envia como preferir.</p></details>
+<details class="q"><summary>Os preços de cada item aparecem para o cliente?</summary><p>Só se você pedir. No PDF, os preços individuais aparecem somente quando solicitados; o total aparece sempre.</p></details>
+<details class="q"><summary>O que acontece quando o cliente aceita?</summary><p>Você registra o aceite, escolhe obra nova ou aditivo, e o Prumo cria o checklist com os serviços da proposta e lança o valor no Financeiro.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st hom">em homologação</span><span>Rascunho da proposta e transcrição do áudio por IA em nuvem, sempre revisados por você.</span></li>
+<li><span class="st hom">em homologação</span><span>Edição dos modelos por conversa com a IA.</span></li>
+<li><span class="st dev">em implantação</span><span>Envio da proposta ao cliente pelo WhatsApp.</span></li>
+<li><span class="st nc">ainda não</span><span>Orçamento totalmente automático a partir da planta, sem revisão.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-projetos"><div class="pn-m" data-m="projetos">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>Projetos guarda os arquivos de projeto de cada obra: plantas, revisões, memoriais e PDFs técnicos, com título, descrição e data de recebimento, ao lado das fotos, do checklist e do financeiro daquela obra.</p>
+<p>A pergunta "qual é a revisão certa?" se responde abrindo a obra, não procurando em pastas e conversas.</p>
+<p class="pn-plan"><b>Planos:</b> Profissional e Business (junto com Relatórios e dossiê).</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>vê os projetos de todas as obras.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>adiciona o projeto recebido e mantém título, descrição e data em ordem.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>consulta contratos e documentos da obra guardados junto.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>abre o PDF da planta na obra em que está, direto no celular.</span></li>
+<li><b>Cliente</b><span>vê somente os documentos que você publicar para ele.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo com a Residencial Horizonte [DEMO]: chegou a planta de iluminação, revisão 02.</p>
+<ol class="pn-steps">
+<li>Abra a obra e entre em <b>Projetos</b>.</li>
+<li>Adicione o arquivo com o título ("Planta de iluminação · revisão 02"), a descrição ("distribuição de luminárias, interruptores e circuitos") e a data de recebimento.</li>
+<li>O projeto aparece como um cartão na aba. A revisão nova fica ao lado da anterior, cada uma com a sua data.</li>
+<li>Na obra, o eletricista abre <b>Abrir PDF</b> no celular e confere o ponto antes de furar a parede.</li>
+<li>Quando uma tarefa do checklist depende da planta, ligue o projeto à tarefa em "Fotos, vídeos e projetos do serviço".</li>
+<li>No fim, o dossiê da obra reúne os projetos com os demais registros.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Arquivos por obra</dt><dd>Cada projeto pertence a uma obra. Não existe pasta solta: o arquivo está onde a obra está.</dd></div>
+<div><dt>Título, descrição e data de recebimento</dt><dd>Identifique a revisão e quando ela chegou, para saber qual vale.</dd></div>
+<div><dt>Abrir PDF na hora</dt><dd>Abra a planta direto do cartão, no computador ou no celular.</dd></div>
+<div><dt>Projeto ligado à tarefa</dt><dd>Na tarefa do checklist, anexe o projeto do serviço junto com fotos e vídeos.</dd></div>
+<div><dt>Ao lado de tudo da obra</dt><dd>Projetos, Fotos e vídeos, Checklist, Materiais e Financeiro são abas da mesma obra.</dd></div>
+<div><dt>Documentos financeiros</dt><dd>Contratos e comprovantes ficam nos documentos da obra, abertos pelo Financeiro.</dd></div>
+<div><dt>Dossiê e relatórios</dt><dd>Visualize ou baixe o dossiê da obra, que reúne projetos e os registros dos outros módulos.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>Os projetos de cada obra, com título, descrição e data.</li>
+<li>O PDF aberto na obra, no computador ou no celular.</li>
+<li>O projeto anexado à tarefa que depende dele.</li>
+<li>O dossiê da obra com os projetos incluídos.</li>
+<li>A resposta "qual revisão vale?" em segundos, pela data de recebimento.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> "QUAL VERSÃO?" gritado na obra, com três PDFs no WhatsApp. <b>No Prumo:</b> cada revisão com título e data, na obra.</li>
+<li><b>Hoje:</b> a planta está no computador do escritório. <b>No Prumo:</b> abre no celular, dentro da obra.</li>
+<li><b>Hoje:</b> o projeto de uma obra vai parar na pasta de outra. <b>No Prumo:</b> o arquivo nasce ligado à obra.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> Projetos é uma aba de cada obra.</li>
+<li><b>Checklist:</b> o projeto do serviço fica anexado à tarefa.</li>
+<li><b>Orçamentos:</b> a planta enviada no pedido do orçamento pode ser guardada aqui.</li>
+<li><b>Financeiro:</b> contratos e comprovantes ficam nos documentos da obra.</li>
+<li><b>Relatórios e dossiê:</b> o dossiê reúne projetos e registros.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>Tem controle de versões?</summary><p>Cada revisão é um arquivo com título, descrição e data de recebimento. Versionamento técnico avançado (comparar revisões, aprovar versão) não existe.</p></details>
+<details class="q"><summary>Que tipos de arquivo posso guardar?</summary><p>PDFs e arquivos de projeto. Na demonstração, o limite é de 2 GB por arquivo; o limite comercial de armazenamento por plano é confirmado na demonstração.</p></details>
+<details class="q"><summary>O projeto que chega pelo WhatsApp vai sozinho para a obra?</summary><p>Ainda não. Arquivar o PDF recebido pelo WhatsApp na obra está em implantação. Hoje você adiciona o arquivo na aba Projetos.</p></details>
+<details class="q"><summary>Preciso do plano Profissional para guardar projetos?</summary><p>Sim. Projetos e Relatórios e dossiê entram no Profissional e no Business. No Gratuito e no Fundador, fotos, vídeos e os anexos das tarefas continuam disponíveis.</p></details>
+<details class="q"><summary>O cliente pode ver os projetos?</summary><p>Só os documentos que você publicar para o perfil Cliente.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st dev">em implantação</span><span>Arquivar na obra o PDF que chega pelo WhatsApp.</span></li>
+<li><span class="st nc">ainda não</span><span>Versionamento técnico avançado e comparação entre revisões.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-fotos"><div class="pn-m" data-m="fotos">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>Fotos e vídeos é a galeria de cada obra. Toda foto e todo vídeo ficam na obra certa, com categoria (fachada, elétrica, iluminação e outras) e data, e podem ser anexados à tarefa do checklist que registram.</p>
+<p>É a prova de que o serviço foi feito, guardada onde ela é procurada: na obra.</p>
+<p class="pn-plan"><b>Planos:</b> incluído em todos, inclusive no Gratuito.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>vê a galeria de todas as obras.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>organiza as mídias por categoria e confere a execução pelas fotos.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>usa as fotos como evidência ao lado dos comprovantes.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>adiciona a foto do serviço pelo celular, na obra em que está, ou direto na tarefa.</span></li>
+<li><b>Cliente</b><span>vê o que você publicar para ele.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo: a fiação do forro da Residencial Horizonte [DEMO] ficou pronta.</p>
+<ol class="pn-steps">
+<li>Na obra, abra o <b>Checklist</b>, encontre a tarefa "Passar fiação do forro" e toque em <b>Anexar foto ou vídeo</b>. A mídia fica ligada à tarefa e aparece na galeria.</li>
+<li>Ou entre em <b>Fotos e vídeos</b> e adicione a mídia direto, escolhendo a categoria ("elétrica").</li>
+<li>Use <b>Ver somente fotos</b> ou <b>Ver somente vídeos</b> para encontrar rápido; a contagem de mídias aparece na aba.</li>
+<li>Quando o cliente perguntar "qual parede?", abra a obra e mostre a foto, com data e categoria.</li>
+<li>No fim da obra, o dossiê leva as fotos junto com os demais registros.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Galeria por obra</dt><dd>Toda mídia pertence a uma obra. Nada fica solto no celular de alguém.</dd></div>
+<div><dt>Fotos e vídeos em abas</dt><dd>Alterne entre fotos e vídeos com um toque; a contagem de mídias fica à vista.</dd></div>
+<div><dt>Categorias</dt><dd>Fachada, elétrica, iluminação e as categorias que a obra pedir, para achar a foto certa.</dd></div>
+<div><dt>Data da mídia</dt><dd>Cada registro com a data; quando ela falta, a tela diz "data não informada" em vez de inventar.</dd></div>
+<div><dt>Foto anexada à tarefa</dt><dd>Anexe a foto ou o vídeo direto na tarefa do checklist; ela vira evidência de execução e aparece na galeria.</dd></div>
+<div><dt>Adicionar pelo celular</dt><dd>No app instalável (PWA), a equipe adiciona a mídia na obra em que está.</dd></div>
+<div><dt>Dossiê</dt><dd>As fotos entram no dossiê da obra, com os demais registros.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>A galeria de cada obra, separada em fotos e vídeos, com categorias.</li>
+<li>A evidência de cada tarefa concluída, na própria tarefa.</li>
+<li>A resposta visual pronta para o cliente.</li>
+<li>As fotos dentro do dossiê da obra.</li>
+<li>A contagem de mídias de cada obra, para saber o que já foi registrado.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> a foto da parede está no celular do eletricista, no meio de mil outras. <b>No Prumo:</b> na obra, na categoria, com data.</li>
+<li><b>Hoje:</b> "foi feito?" sem prova. <b>No Prumo:</b> a foto anexada à tarefa concluída.</li>
+<li><b>Hoje:</b> fotos de duas obras misturadas no grupo. <b>No Prumo:</b> cada obra com a própria galeria.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> Fotos e vídeos é uma aba de cada obra.</li>
+<li><b>Checklist:</b> a mídia anexada à tarefa é a evidência da execução.</li>
+<li><b>Projetos:</b> o projeto do serviço fica ao lado das fotos na mesma tarefa.</li>
+<li><b>Relatórios e dossiê:</b> as fotos entram no dossiê da obra.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>A foto que a equipe manda no WhatsApp vai sozinha para a obra?</summary><p>Ainda não. Salvar na obra a foto que chega pelo WhatsApp está em implantação. Hoje a pessoa adiciona pela obra ou pela tarefa, no celular.</p></details>
+<details class="q"><summary>Posso compartilhar a galeria com o cliente?</summary><p>Você publica o que quiser para o perfil Cliente. Compartilhamento externo automático (link público) não existe.</p></details>
+<details class="q"><summary>Tem limite de tamanho?</summary><p>Na demonstração, 2 GB por arquivo. O limite comercial de armazenamento por plano é confirmado na demonstração.</p></details>
+<details class="q"><summary>Quem pode apagar uma foto?</summary><p>Quem tem perfil de Proprietário ou Gestor na obra. O Colaborador adiciona e consulta as mídias das obras em que está.</p></details>
+<details class="q"><summary>Vídeos também?</summary><p>Sim. Fotos e vídeos ficam em abas separadas na mesma galeria.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st dev">em implantação</span><span>Salvar na obra a foto ou o vídeo que chega pelo WhatsApp.</span></li>
+<li><span class="st nc">ainda não</span><span>Compartilhamento externo automático por link público.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-automacao"><div class="pn-m" data-m="automacao">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>Automação é a central de rotinas do Prumo: lembretes, conferências e resumos que rodam sozinhos no horário que você define. Você descreve a rotina do seu jeito ou configura manualmente, revisa cada detalhe e só então ativa.</p>
+<p>Nada entra em vigor sem a sua revisão, e cada execução fica no histórico.</p>
+<p class="pn-plan"><b>Planos:</b> Business.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>recebe o resumo das obras e decide quais rotinas valem para a empresa.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>cria lembretes da agenda e conferências das obras que acompanha.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>usa rotinas de resumo para preparar cobranças e fechamentos.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>não configura rotinas; recebe o efeito delas quando o destino estiver ativo.</span></li>
+<li><b>Cliente</b><span>não tem acesso.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo: "Resumo das obras toda sexta às 16h".</p>
+<ol class="pn-steps">
+<li>Abra <b>Automação</b> e toque em <b>Nova rotina</b>. Em <b>Converse com o Prumo</b>, escreva "toda sexta às 16h, confira as pendências das obras e deixe um resumo no histórico" (a montagem por IA está em homologação) ou use <b>Configurar manualmente</b>.</li>
+<li>Revise a sugestão: nome da rotina, <b>Quando executar?</b> (horário escolhido, dia da semana, segunda a sexta, a cada N dias ou quando a agenda mudar), <b>O que o Prumo deve consultar ou lembrar?</b>, a obra e <b>Onde receber o resultado?</b>.</li>
+<li>Toque em <b>Criar e ativar rotina</b> (ou <b>Criar rotina pausada</b> para ativar depois).</li>
+<li>Na sexta às 16h, a rotina roda e grava o resumo no <b>Histórico da automação</b>; "Próxima execução" mostra a seguinte.</li>
+<li>Precisou mudar? <b>Editar automação</b>, pausar ou excluir. Rotinas pausadas continuam disponíveis para retomar.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Rotinas de acompanhamento, lembretes e resumos</dt><dd>"Resumo das obras toda sexta às 16h", "Lembre minha agenda todos os dias às 7h30", "Avise quando houver compromisso confirmado".</dd></div>
+<div><dt>Descrever em texto ou configurar manualmente</dt><dd>Converse com o Prumo (IA em homologação) ou preencha os campos. Nos dois caminhos, você revisa antes de ativar.</dd></div>
+<div><dt>Quando executar</dt><dd>No horário escolhido, em dias da semana, de segunda a sexta, a cada N dias ou quando a agenda mudar (verificação a cada 5 minutos). Horário de Brasília.</dd></div>
+<div><dt>Condição e obra</dt><dd>Sem condição adicional ou "conforme a rotina"; a obra selecionada limita o que é consultado.</dd></div>
+<div><dt>Destino do resultado</dt><dd>Histórico no Prumo funciona hoje; WhatsApp particular está em implantação.</dd></div>
+<div><dt>Ativar, pausar, editar e excluir</dt><dd>Crie ativa ou pausada; pause e retome quando quiser; edite os detalhes; exclua o que não serve.</dd></div>
+<div><dt>Estados</dt><dd>Ativas, pausadas, precisa de atenção e com histórico, nos contadores do topo.</dd></div>
+<div><dt>Histórico de execuções</dt><dd>Cada execução registrada, com o resumo do que foi encontrado. "Ainda não há execuções" quando a rotina é nova.</dd></div>
+<div><dt>Próxima execução</dt><dd>Data e hora da próxima rodada, por rotina.</dd></div>
+<div><dt>Editar na Agenda</dt><dd>Rotinas ligadas a compromissos abrem a Agenda para ajuste.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>Resumos e lembretes no horário combinado, no histórico do Prumo.</li>
+<li>A lista de rotinas com estado e próxima execução.</li>
+<li>O histórico de cada execução.</li>
+<li>Avisos pelo WhatsApp quando o canal estiver homologado.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> "materiais_v3(2).xlsx" e a conferência da semana dependem de alguém lembrar. <b>No Prumo:</b> a rotina confere e resume no horário.</li>
+<li><b>Hoje:</b> a agenda do dia é olhada de manhã, com sorte. <b>No Prumo:</b> lembrete todo dia às 7h30.</li>
+<li><b>Hoje:</b> uma automação mal feita dispara coisa errada. <b>No Prumo:</b> nenhuma rotina entra em vigor sem a sua revisão.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> as rotinas consultam os registros das obras e apresentam só o que precisa de atenção.</li>
+<li><b>Agenda:</b> rotinas de lembrete leem a Agenda; "quando a agenda mudar" dispara ao detectar mudança.</li>
+<li><b>WhatsApp:</b> o destino "meu WhatsApp particular" existe na tela e será ligado quando o canal for homologado.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>A rotina manda mensagem no WhatsApp?</summary><p>Ainda não: o envio pelo WhatsApp está em implantação. Hoje o resultado fica no histórico da automação, dentro do Prumo.</p></details>
+<details class="q"><summary>Preciso saber programar?</summary><p>Não. Descreva a rotina em português ou preencha os campos: quando, o quê, obra e destino.</p></details>
+<details class="q"><summary>A IA cria a rotina sozinha?</summary><p>A montagem por conversa está em homologação. Mesmo quando ativa, a rotina só é criada depois da sua revisão.</p></details>
+<details class="q"><summary>Posso parar uma rotina sem apagar?</summary><p>Sim. Pause; ela continua disponível para retomar, com o histórico.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st hom">em homologação</span><span>Montar a rotina por conversa com a IA em nuvem.</span></li>
+<li><span class="st dev">em implantação</span><span>Envio real do resultado pelo WhatsApp.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-checklist"><div class="pn-m" data-m="checklist">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>O Checklist da obra é a lista de tarefas de cada obra: o que precisa ser feito, quem é o responsável, até quando, com que prioridade e quem executou. Cada tarefa aceita fotos, vídeos e projetos, e o resumo mostra o percentual concluído.</p>
+<p>É de onde saem as respostas "o que falta?" e "quem fez?".</p>
+<p class="pn-plan"><b>Planos:</b> incluído em todos, inclusive no Gratuito.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>vê o que está pendente, atrasado ou precisa de atenção em cada obra.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>cria as tarefas, define responsável, prazo e prioridade e marca a conclusão.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>consulta o percentual do checklist ao preparar cobranças e relatórios.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>vê as próprias tarefas, anexa a foto do serviço e registra quem executou.</span></li>
+<li><b>Cliente</b><span>vê o que você publicar para ele.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo: "Levantamento dos ambientes" na Residencial Horizonte [DEMO], com Ana Exemplo e prazo 28/10/2026.</p>
+<ol class="pn-steps">
+<li>Abra a obra e entre em <b>Checklist da obra</b>. Escreva a tarefa no campo <b>Nova tarefa</b>.</li>
+<li>Defina o responsável (funcionário ou colaborador cadastrado), o prazo e a prioridade (alta ou sem prioridade).</li>
+<li>Anexe o que ajuda a executar: foto, vídeo ou o projeto do serviço.</li>
+<li>Quem fez, registra em <b>Quem fez?</b>: os executores ficam salvos na tarefa e aparecem no Cartão Ponto da pessoa.</li>
+<li>Toque em <b>Concluir</b>. O resumo do checklist atualiza o percentual, os serviços concluídos, pendentes, as próximas tarefas e as que precisam de atenção. Errou? <b>Reabrir</b>.</li>
+<li>Veio de um orçamento aceito? As tarefas já nascem prontas, com o prazo de cada serviço.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Nova tarefa</dt><dd>Título, responsável, prazo e prioridade, criados em segundos na obra.</dd></div>
+<div><dt>Responsável e executores</dt><dd>Quem responde pela tarefa e quem de fato executou, com "Executado por" registrado.</dd></div>
+<div><dt>Prazo e prioridade</dt><dd>Prazo do serviço e prioridade alta para o que não pode esperar.</dd></div>
+<div><dt>Anexos na tarefa</dt><dd>Fotos, vídeos e projetos do serviço, com limite de 2 GB por arquivo na demonstração.</dd></div>
+<div><dt>Concluir e reabrir</dt><dd>Conclusão registrada com data; reabertura quando algo voltou.</dd></div>
+<div><dt>Resumo do checklist</dt><dd>Percentual concluído, serviços concluídos e pendentes, próximas tarefas e as que precisam de atenção. O Prumo avisa: é percentual de itens, não medição física.</dd></div>
+<div><dt>Datas da obra</dt><dd>Início da obra e entrega prevista editáveis a partir do checklist.</dd></div>
+<div><dt>Checklist a partir do orçamento</dt><dd>Ao registrar o aceite de uma proposta, os serviços entram no checklist da obra nova ou como aditivo de uma obra existente.</dd></div>
+<div><dt>Editar e excluir serviço</dt><dd>Ajuste o título, o prazo e os anexos; exclua o que não vale mais.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>A lista de tarefas de cada obra, com responsável e prazo.</li>
+<li>O percentual do checklist e a lista do que precisa de atenção.</li>
+<li>A evidência de cada tarefa (fotos e vídeos) e quem executou.</li>
+<li>As horas dos executores refletidas no Cartão Ponto.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> a tarefa foi combinada no grupo e ninguém sabe se saiu. <b>No Prumo:</b> tarefa com responsável, prazo e conclusão.</li>
+<li><b>Hoje:</b> "quem fez isso?" sem resposta. <b>No Prumo:</b> executores registrados.</li>
+<li><b>Hoje:</b> o cliente aceita e as tarefas são redigitadas. <b>No Prumo:</b> o aceite cria o checklist.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> o percentual e as tarefas com atenção aparecem no cartão e na aba Geral.</li>
+<li><b>Orçamentos:</b> a proposta aceita cria as tarefas.</li>
+<li><b>Fotos e vídeos e Projetos:</b> os anexos da tarefa aparecem na galeria e nos projetos da obra.</li>
+<li><b>Cartão Ponto:</b> os serviços executados por cada pessoa aparecem no ponto dela.</li>
+<li><b>Pessoas e Equipes:</b> responsáveis e executores vêm do cadastro.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>Marcar tudo como concluído quer dizer que a obra terminou?</summary><p>Não. O percentual é de itens do checklist, não medição física. O Prumo avisa isso na tela.</p></details>
+<details class="q"><summary>A equipe pode marcar as próprias tarefas?</summary><p>Sim, com o perfil Colaborador: a pessoa vê as tarefas atribuídas, anexa fotos e registra a execução.</p></details>
+<details class="q"><summary>Tem lembrete de prazo?</summary><p>As tarefas com prazo próximo aparecem em "precisam de atenção". Avisos pelo WhatsApp estão em implantação; rotinas de lembrete existem na Automação (plano Business).</p></details>
+<details class="q"><summary>Posso ter checklist padrão por tipo de serviço?</summary><p>Hoje o checklist nasce do orçamento aceito ou é criado tarefa a tarefa. Modelos de checklist por serviço não existem.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st dev">em implantação</span><span>Aviso de prazo pelo WhatsApp.</span></li>
+<li><span class="st nc">ainda não</span><span>Modelos de checklist por tipo de serviço.</span></li>
+</ul></section>
+</div>
+</template>
+<template id="pn-pessoas"><div class="pn-m" data-m="pessoas">
+<section class="pn-s" data-s="oque"><h3>O que é</h3>
+<p>Pessoas e Equipes é o cadastro de quem trabalha com você: equipe, clientes e fornecedores, com função, contato e vínculo com as obras. E Equipe e acessos é onde cada pessoa ganha a própria conta, com um perfil que define o que ela vê.</p>
+<p>Fim da senha compartilhada: cada um entra com o próprio acesso e vê só o que precisa.</p>
+<p class="pn-plan"><b>Planos:</b> Gratuito tem 1 pessoa; Fundador 3; Profissional 8; Business 20.</p></section>
+
+<section class="pn-s" data-s="quem"><h3>Para quem</h3>
+<ul class="pn-who">
+<li><b>Dono (Proprietário)</b><span>cadastra as pessoas, convida para o Prumo e define o perfil de cada uma.</span></li>
+<li><b>Engenheiro ou mestre (Gestor)</b><span>vincula as pessoas às obras e mantém funções e contatos atualizados.</span></li>
+<li><b>Administrativo (Financeiro)</b><span>cadastra salário e valor-hora, usados pelo Cartão Ponto.</span></li>
+<li><b>Equipe de campo (Colaborador)</b><span>entra com a própria conta e vê as obras em que está.</span></li>
+<li><b>Cliente</b><span>recebe um acesso limitado à obra dele.</span></li>
+</ul></section>
+
+<section class="pn-s" data-s="dia"><h3>No dia a dia</h3>
+<p class="pn-ex">Exemplo: Bruno Exemplo entra na equipe da Residencial Horizonte [DEMO].</p>
+<ol class="pn-steps">
+<li>Abra <b>Pessoas e Equipes</b> e cadastre Bruno: nome, função (eletricista), contato e, se for calcular custo, salário ou valor-hora.</li>
+<li>Na obra, em <b>Equipe e contatos</b>, marque Bruno em <b>Pessoas vinculadas à obra</b> e salve os vínculos. Ele passa a poder ser escalado na Agenda e a registrar ponto nessa obra.</li>
+<li>Para Bruno usar o Prumo, vá em <b>Equipe e acessos</b>, crie o acesso com o perfil Colaborador e gere o convite: um link que aparece uma única vez e vale 24 horas.</li>
+<li>Bruno entra com a própria conta e vê só as obras, tarefas, agenda e ponto dele.</li>
+<li>Saiu da empresa? Marque o cadastro como inativo e retire-o das obras. O histórico fica.</li>
+</ol></section>
+
+<section class="pn-s" data-s="fn"><h3>Funções</h3>
+<dl class="pn-fn">
+<div><dt>Cadastro de pessoas</dt><dd>Nome, função, contato, valores e vínculos. Equipe, clientes e fornecedores no mesmo cadastro.</dd></div>
+<div><dt>Vínculo com obras</dt><dd>Marque quem participa de cada obra; a escala da Agenda e o ponto usam esse vínculo.</dd></div>
+<div><dt>Grupos e equipes</dt><dd>Organize pessoas em equipes para escalar de uma vez.</dd></div>
+<div><dt>Cadastro inativo</dt><dd>Quem saiu fica inativo, sem apagar o histórico de horas e tarefas.</dd></div>
+<div><dt>Conta individual</dt><dd>Cada pessoa com login próprio, senha própria e sessões que podem ser encerradas.</dd></div>
+<div><dt>Cinco perfis</dt><dd>Proprietário (tudo), Gestor (obras, pessoas, horas, agenda, documentos internos), Financeiro (resumo das obras e finanças), Colaborador (o que lhe foi atribuído) e Cliente (só a obra e os documentos publicados).</dd></div>
+<div><dt>Convite de uso único</dt><dd>Link que aparece uma vez e vale 24 horas. Você envia como preferir; o envio automático por e-mail está em homologação.</dd></div>
+<div><dt>Dados separados por empresa</dt><dd>Cada empresa vê só os próprios dados; o isolamento é testado no código do Prumo.</dd></div>
+</dl></section>
+
+<section class="pn-s" data-s="recebe"><h3>O que você recebe</h3>
+<ul class="pn-get">
+<li>O cadastro único de equipe, clientes e fornecedores.</li>
+<li>A lista de pessoas de cada obra.</li>
+<li>Uma conta por pessoa, com perfil e sessões controladas.</li>
+<li>O custo de equipe calculado no Cartão Ponto a partir do salário cadastrado.</li>
+</ul></section>
+
+<section class="pn-s" data-s="resolve"><h3>O que resolve</h3>
+<ul class="pn-pain">
+<li><b>Hoje:</b> todo mundo usa a mesma senha e ninguém sabe quem mexeu. <b>No Prumo:</b> conta por pessoa, com perfil.</li>
+<li><b>Hoje:</b> o telefone do fornecedor está no celular de alguém que saiu. <b>No Prumo:</b> contato no cadastro da empresa.</li>
+<li><b>Hoje:</b> o cliente pede acesso e recebe prints. <b>No Prumo:</b> perfil Cliente com a obra dele.</li>
+</ul></section>
+
+<section class="pn-s" data-s="liga"><h3>Como conversa com os outros módulos</h3>
+<ul class="pn-link">
+<li><b>Obras:</b> cada obra tem a própria lista de pessoas vinculadas.</li>
+<li><b>Agenda:</b> a escala ("Quem vai?") usa as pessoas cadastradas.</li>
+<li><b>Cartão Ponto:</b> os funcionários e os salários vêm daqui.</li>
+<li><b>Checklist:</b> responsáveis e executores são pessoas do cadastro.</li>
+<li><b>Financeiro:</b> o custo de equipe é calculado com os valores cadastrados.</li>
+</ul></section>
+
+<section class="pn-s" data-s="faq"><h3>Perguntas comuns</h3>
+<details class="q"><summary>Quantas pessoas cabem no meu plano?</summary><p>Gratuito 1, Fundador 3, Profissional 8, Business 20. Cada pessoa tem conta própria.</p></details>
+<details class="q"><summary>Como funciona o convite?</summary><p>É um link de uso único que aparece uma vez e vale 24 horas. Você envia pelo canal que preferir; o envio automático por e-mail está em homologação.</p></details>
+<details class="q"><summary>Existe perfil de fornecedor?</summary><p>Não. Fornecedores entram como contatos do cadastro, sem acesso ao Prumo.</p></details>
+<details class="q"><summary>Posso tirar o acesso de alguém na hora?</summary><p>Sim: marque o cadastro como inativo e encerre as sessões. O histórico de horas e tarefas continua.</p></details>
+</section>
+
+<section class="pn-s pn-hom" data-s="hom"><h3>Ainda em homologação</h3>
+<ul class="pn-st">
+<li><span class="st hom">em homologação</span><span>Envio automático do convite e recuperação de senha por e-mail.</span></li>
+<li><span class="st nc">ainda não</span><span>Perfil de fornecedor com acesso ao Prumo.</span></li>
+</ul></section>
+</div>
+</template>
+<dialog class="pn" id="pn" aria-labelledby="pn-t" data-lenis-prevent>
+  <div class="pn-sc">
+    <header class="pn-bar">
+      <span class="pn-k"><span class="fi" aria-hidden="true"><svg class="ico"><use href="#i-building"/></svg></span><b id="pn-t">Obras</b></span>
+      <nav class="pn-acts" aria-label="Ações">
+        <a class="btn sm pn-wa" data-wa="Olá! Quero uma demonstração do Prumo.">Solicitar demonstração</a>
+        <a class="btn ghost sm" data-app>Entrar</a>
+        <button class="btn ghost sm pn-x" type="button"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg><span>Voltar aos módulos</span></button>
+      </nav>
+    </header>
+    <div class="pn-wrap">
+      <nav class="pn-nav" aria-label="Seções do módulo"></nav>
+      <div class="pn-main">
+        <div class="pn-intro">
+          <h2 class="pn-h">Tudo sobre <span>Obras</span></h2>
+          <p class="pn-lead"></p>
+          <button class="btn ghost sm pn-film" type="button">Ver o filme</button>
+        </div>
+        <div class="pn-body"></div>
+        <footer class="pn-foot">
+          <div class="pn-np"><button class="btn ghost sm pn-prev" type="button"></button><button class="btn ghost sm pn-next" type="button"></button></div>
+          <a class="btn pn-wa" data-wa="Olá! Quero uma demonstração do Prumo.">Falar no WhatsApp</a>
+        </footer>
+      </div>
+    </div>
+  </div>
+</dialog>
+
 <dialog class="seg" id="seg" aria-labelledby="seg-t" data-lenis-prevent>
   <div class="seg-sc">
     <div class="seg-tr">
@@ -1960,7 +2933,7 @@ a.btn { text-decoration: none; }
             </div>
             <p class="seg-soon"><span class="st dev">em implantação</span><span></span></p>
             <p class="seg-not"><span class="st nc">ainda não</span><span></span></p>
-            <div class="seg-acts"><a class="btn seg-cta" data-wa="Olá! Quero uma demonstração do Prumo.">Falar no WhatsApp</a><button class="btn ghost seg-back" type="button">Voltar aos módulos</button></div>
+            <div class="seg-acts"><button class="btn seg-all" type="button">Ver tudo sobre este módulo</button><a class="btn ghost seg-cta" data-wa="Olá! Quero uma demonstração do Prumo.">Falar no WhatsApp</a><button class="btn ghost seg-back" type="button">Voltar aos módulos</button></div>
           </div>
         </div>
         <p class="seg-hint" aria-hidden="true">Role para ver</p>
@@ -1992,17 +2965,11 @@ a.btn { text-decoration: none; }
       setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 1500);
     }, () => {});
   });
-  // Checklist and Pessoas have no film yet: the tile opens a line of text below it (works without GSAP too)
-  $$('.mg-b[data-info]').forEach(b => b.addEventListener('click', () => {
-    const p = b.nextElementSibling;
-    p.hidden = !p.hidden;
-    b.setAttribute('aria-expanded', String(!p.hidden));
-  }));
   $$('img[data-shot]').forEach(img => { const src = $(`.s-${img.dataset.shot} img`); if (src) img.src = src.src; });
   if (!window.gsap || !window.ScrollTrigger) {
     root.classList.add('no-gsap');
     // the module films need GSAP: their tiles stay readable but inert
-    $$('.mg-b[data-m]').forEach(b => { b.disabled = true; b.removeAttribute('aria-haspopup'); });
+    $$('.mg-b, .mg-all').forEach(b => { b.disabled = true; b.removeAttribute('aria-haspopup'); });
     return;
   }
   gsap.registerPlugin(ScrollTrigger);
@@ -2827,6 +3794,7 @@ a.btn { text-decoration: none; }
   const openSeg = btn => {
     const key = btn.dataset.m, m = MODS[key], f = FILM[key], c = m.crop || [0, 0, 100, 100];
     $('.seg-cta', seg).href = waLink(`Olá! Quero uma demonstração do Prumo, sobre ${m.t}.`);
+    $('.seg-all', seg).textContent = `Ver tudo sobre ${m.t}`;
     opener = btn;
     isOpen = true;
     closing = false;
@@ -2887,6 +3855,8 @@ a.btn { text-decoration: none; }
     // a film opened from the reel returns to the grid below it; either way focus lands on the grid tile
     const key = opener.dataset.m, g = $(`.mg-b[data-m="${key}"]`);
     markSeen(key);
+    // the closing card's main action: the film hands over to the module's full panel, which then returns to the grid
+    if (nextPanel) { const from = returnTarget; nextPanel = false; openPanel(key, from); return; }
     if (returnTarget === 'reel') goTo($('#modulos'));
     (g || opener).focus({ preventScroll: true });
   };
@@ -2902,6 +3872,7 @@ a.btn { text-decoration: none; }
   seg.addEventListener('cancel', e => { e.preventDefault(); closeSeg(); });
   $('.seg-x', seg).addEventListener('click', closeSeg);
   $('.seg-back', seg).addEventListener('click', closeSeg);
+  $('.seg-all', seg).addEventListener('click', () => { nextPanel = true; closeSeg(); });
 
   // While the reel is on screen the bob hangs from the pointer, a damped pendulum kicked by the pointer's acceleration.
   // Choosing a module cuts the line: the bob falls out of the frame and lands in that module's film.
@@ -2910,7 +3881,7 @@ a.btn { text-decoration: none; }
   const P = { on: false, dropping: false, tx: 0, ty: 0, x: 0, y: 0, vx: 0, a: 0, w: 0, frame: 0, near: null, lastX: null, lastY: null };
   const fbs = $$('.reel .fb');
   // the module under the bob says what it does, in one line, without asking for a click
-  const reelD = $('.reel-d'), DESC = Object.fromEntries($$('.mg-b[data-m]').map(b => [b.dataset.m, $('small', b).textContent]));
+  const reelD = $('.reel-d'), DESC = Object.fromEntries($$('.mg-b[data-m], .mg-b[data-p]').map(b => [b.dataset.m || b.dataset.p, $('small', b).textContent]));
   const showDesc = key => { reelD.classList.toggle('on', !!key); if (key) { $('b', reelD).textContent = MODS[key].t; $('span', reelD).textContent = DESC[key] || ''; } };
   fbs.forEach(b => { b.addEventListener('focus', () => showDesc(b.dataset.m)); b.addEventListener('blur', () => showDesc(P.near && P.near.dataset.m)); });
   // The buttons fly in from the bob, so their centres (viewport coords) are re-read every 6th frame instead of once.
@@ -2995,6 +3966,69 @@ a.btn { text-decoration: none; }
   $$('.mg-b[data-m]').forEach(b => b.addEventListener('click', () => { returnTarget = 'grid'; dropInto(b); }));
 
   if (document.fonts) document.fonts.ready.then(() => { fitStage(); ScrollTrigger.refresh(); });
+  // ---------- module panels: everything about a module, from the grid or from the end of its film ----------
+  const pn = $('#pn'), pnSc = $('.pn-sc', pn), pnBody = $('.pn-body', pn), pnNav = $('.pn-nav', pn), pnT = $('#pn-t'), pnH = $('.pn-h span', pn), pnLead = $('.pn-lead', pn), pnFilm = $('.pn-film', pn);
+  const ORDER = ['obras', 'agenda', 'ponto', 'financeiro', 'compras', 'orcamentos', 'projetos', 'fotos', 'automacao', 'checklist', 'pessoas'];
+  const PN_T = { checklist: { i: 'check', t: 'Checklist' }, pessoas: { i: 'users', t: 'Pessoas' } };
+  const SEC = { oque: 'O que é', quem: 'Para quem', dia: 'No dia a dia', fn: 'Funções', recebe: 'O que você recebe', resolve: 'O que resolve', liga: 'Com os outros módulos', faq: 'Perguntas comuns', hom: 'Em homologação' };
+  const modOf = key => MODS[key] || PN_T[key];
+  const tileOf = key => $(`.mg-b[data-m="${key}"], .mg-b[data-p="${key}"]`);
+  let pnKey = null, pnReturn = 'grid', pnIo = null, nextPanel = false, pnClosing = false;
+  const openPanel = (key, from = 'grid') => {
+    const m = modOf(key);
+    pnKey = key;
+    pnReturn = from;
+    $('.pn-k .fi use', pn).setAttribute('href', '#i-' + m.i);
+    pnT.textContent = m.t;
+    pnH.textContent = m.t;
+    pnLead.textContent = DESC[key] || '';
+    pnFilm.hidden = !MODS[key];
+    pnFilm.textContent = `Ver o filme de ${m.t}`;
+    $$('.pn-wa', pn).forEach(a => { a.href = waLink(`Olá! Quero uma demonstração do Prumo, sobre ${m.t}.`); });
+    pnBody.replaceChildren($('#pn-' + key).content.cloneNode(true));
+    const secs = $$('.pn-s', pnBody);
+    secs.forEach(sec => { sec.id = `pn-${key}-${sec.dataset.s}`; });
+    pnNav.innerHTML = secs.map(sec => `<a href="#${sec.id}">${SEC[sec.dataset.s] || sec.dataset.s}</a>`).join('');
+    const i = ORDER.indexOf(key), prev = ORDER[(i + ORDER.length - 1) % ORDER.length], next = ORDER[(i + 1) % ORDER.length];
+    Object.assign($('.pn-prev', pn), { textContent: `← ${modOf(prev).t}` }).dataset.p = prev;
+    Object.assign($('.pn-next', pn), { textContent: `Próximo: ${modOf(next).t} →` }).dataset.p = next;
+    if (!pn.open) { pn.showModal(); root.classList.add('mod-open'); if (lenis) lenis.stop(); gsap.fromTo(pn, { autoAlpha: 0 }, { autoAlpha: 1, duration: reduced ? .15 : .25 }); }
+    pnSc.scrollTop = 0;
+    pnClosing = false;
+    // the section index follows the scroll
+    if (pnIo) pnIo.disconnect();
+    pnIo = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) $$('a', pnNav).forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id)); }), { root: pnSc, rootMargin: '-12% 0px -68% 0px' });
+    secs.forEach(sec => pnIo.observe(sec));
+  };
+  // closes, returns to the grid (also when the panel was reached from the reel) and gives focus back to the module's tile
+  const closePanel = after => {
+    if (!pn.open || pnClosing) return;
+    pnClosing = true;
+    const key = pnKey, back = pnReturn;
+    gsap.to(pn, { autoAlpha: 0, duration: reduced ? .1 : .2, onComplete: () => {
+      pn.close();
+      pnClosing = false;
+      root.classList.remove('mod-open');
+      if (lenis) lenis.start();
+      if (after) { after(); return; }
+      if (back === 'reel') goTo($('#modulos'));
+      const t = tileOf(key);
+      if (t) t.focus({ preventScroll: true });
+    } });
+  };
+  new ResizeObserver(() => pn.style.setProperty('--pn-top', $('.pn-bar', pn).offsetHeight + 'px')).observe($('.pn-bar', pn));
+  pn.addEventListener('cancel', e => { e.preventDefault(); closePanel(); });
+  $('.pn-x', pn).addEventListener('click', () => closePanel());
+  $$('.pn-prev, .pn-next', pn).forEach(b => b.addEventListener('click', () => openPanel(b.dataset.p, pnReturn)));
+  pnFilm.addEventListener('click', () => { const t = tileOf(pnKey); closePanel(() => { returnTarget = 'grid'; dropInto(t); }); });
+  pnNav.addEventListener('click', e => {
+    const a = e.target.closest('a');
+    if (!a) return;
+    e.preventDefault();
+    $(a.getAttribute('href'), pnBody).scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  });
+  $$('.mg-all, .mg-b[data-p]').forEach(b => b.addEventListener('click', () => openPanel(b.dataset.p, 'grid')));
+
   // Landing: each block settles into place once as it enters; the drawn lines of the site trace themselves in.
   const rvEls = $$('.s-hero > div, .s-hero .shotbox, .mg > li, .dia > li, .aud > li, .roles > li, .plan, .truth > div, .sec > li, .q, .site .s > h2, .site .s > .lead, .s-end > :not(.end-bob), .recargas, .plan-note');
   rvEls.forEach(el => { el.classList.add('rv'); el.style.transitionDelay = Math.min([...el.parentNode.children].indexOf(el), 7) * 55 + 'ms'; });

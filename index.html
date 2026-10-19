@@ -760,6 +760,44 @@ a.btn { text-decoration: none; }
 .btn.ghost:hover { background: rgba(57, 213, 245, .08); border-color: var(--cyan); }
 .btn.sm { min-height: 36px; padding: 8px 14px; font-size: 13px; }
 /* site bar: slides in once the pinned film has been scrolled past */
+/* ---------- opening: what Prumo is, for whom, what it does ---------- */
+.open { position: relative; z-index: 1; color: var(--fg); min-height: 100svh; display: grid; align-content: center; gap: 28px; padding: calc(var(--barH) + 36px) var(--gut) 40px; padding-right: var(--gut-r); background: radial-gradient(120% 90% at 50% -20%, #0e2442 0%, var(--ink) 60%); }
+.open-in { width: 100%; max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 48px; align-items: center; }
+.open-t { display: grid; gap: 18px; justify-items: start; }
+.open-k { margin: 0; font: 600 12px/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--cyan); }
+.open h1 { margin: 0; font: 600 clamp(34px, 4.8vw, 58px)/1.06 var(--f-display); letter-spacing: -.015em; text-wrap: balance; }
+.open-lead { margin: 0; max-width: 58ch; font-size: 18px; line-height: 1.55; color: #b8c7d9; }
+.open-3 { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.open-3 li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 14px; align-items: center; }
+.open-3 .fi { width: 44px; height: 44px; border-radius: 12px; }
+.open-3 .fi .ico { width: 20px; height: 20px; }
+.open-3 b { display: block; font: 600 16px/1.25 var(--f-display); }
+.open-3 span { display: block; font-size: 14.5px; line-height: 1.45; color: var(--mute); }
+.open .s-acts { margin-top: 6px; }
+.open .hero-f { margin-top: 0; }
+.open-shot { margin: 0; }
+.open-shot figcaption { padding: 10px 14px; font: 500 12px/1.4 var(--f-mono); color: var(--mute); border-top: 1px solid #1c2b40; }
+.open-scroll { justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 8px; font: 500 12.5px/1.4 var(--f-mono); letter-spacing: .04em; color: var(--mute); text-decoration: none; text-align: center; }
+.open-scroll::after { content: ""; width: 10px; height: 10px; border-right: 2px solid var(--cyan); border-bottom: 2px solid var(--cyan); transform: rotate(45deg); animation: nudge 1.4s ease-in-out infinite; }
+.open-scroll:hover { color: var(--fg); }
+.calm-motion .open-scroll::after { animation: none; }
+@media (max-width: 859px) {
+  .open { padding-top: calc(var(--barH) + 24px); }
+  .open-in { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .open-lead { font-size: 16.5px; }
+}
+/* the film bar narrates; the clock, the counter and the prototype tag leave it */
+.bar .clock, .bar .hud, .bar .tag { display: none; }
+.nar { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 10px; margin: 0; font: 500 13px/1.35 var(--f-mono); color: #c9d6e3; }
+.nar b { flex: 0 0 auto; padding: 4px 8px; border: 1px solid rgba(57, 213, 245, .5); border-radius: 999px; font: 600 11.5px/1 var(--f-mono); color: var(--cyan); }
+.nar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 859px) {
+  .bar { flex-wrap: wrap; height: auto; min-height: var(--barH); row-gap: 2px; padding-bottom: 6px; background: linear-gradient(rgba(5, 11, 22, .94), rgba(5, 11, 22, .7)); }
+  .bar-l { order: 0; } .bar-r { order: 1; } .nar { order: 2; flex-basis: 100%; font-size: 12px; }
+  .nar span { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; height: 2.7em; }
+}
+@media (max-width: 599px) { .sbar .sb-fl { display: none; } }
+
 /* ---------- module panel: everything about a module ---------- */
 .pn { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: #060d19; color: var(--fg); }
 .pn::backdrop { background: rgba(2, 6, 12, .6); }
@@ -958,8 +996,30 @@ a.btn { text-decoration: none; }
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
 </svg>
 
+<section class="open" id="inicio">
+  <div class="open-in">
+    <div class="open-t">
+      <p class="open-k">Sistema de gestão de obras</p>
+      <h1>O Prumo organiza a obra da sua empresa.</h1>
+      <p class="open-lead">Obras, equipe, materiais, agenda, orçamento e financeiro num só lugar, obra por obra. Feito para quem executa e administra obras: construtoras, arquitetos, marcenarias, eletricistas e empreiteiros. O cliente final recebe só um acesso de consulta à obra dele.</p>
+      <ul class="open-3">
+        <li><span class="fi" aria-hidden="true"><svg class="ico"><use href="#i-building"/></svg></span><div><b>Cada obra num só lugar</b><span>Tarefas, materiais, fotos, projetos e dinheiro dentro da obra certa.</span></div></li>
+        <li><span class="fi" aria-hidden="true"><svg class="ico"><use href="#i-users"/></svg></span><div><b>Equipe organizada</b><span>Quem vai, para onde, a que horas, e as horas trabalhadas de cada pessoa.</span></div></li>
+        <li><span class="fi" aria-hidden="true"><svg class="ico"><use href="#i-money"/></svg></span><div><b>Dinheiro com origem</b><span>Contrato, recebimentos, custos e orçamentos sem planilha.</span></div></li>
+      </ul>
+      <div class="s-acts">
+        <a class="btn big" href="#filme">Ver como funciona</a>
+        <a class="btn ghost big" href="https://app.prumonaobra.com.br/auth.html?register=1" target="_blank" rel="noopener">Criar conta gratuita</a>
+        <a class="btn ghost big" data-wa="Olá! Quero conhecer o Prumo.">Falar no WhatsApp</a>
+      </div>
+      <p class="hero-f">Implantação acompanhada · Blumenau e Vale do Itajaí</p>
+    </div>
+    <figure class="shotbox open-shot"><img data-shot="obras" width="1600" height="1000" alt="Tela Obras do Prumo: 12 obras ativas e os cartões de três obras, com valores, pagamento e alertas."><figcaption>A tela Obras: cada obra da empresa com dinheiro, pagamento e alertas.</figcaption></figure>
+  </div>
+  <a class="open-scroll" href="#filme">Role para ver uma obra sem o Prumo e depois com o Prumo</a>
+</section>
+
 <section class="film" id="filme">
-  <h1 class="sr-only">Um dia com o Prumo</h1>
   <p class="sr-only">Protótipo animado, com dados fictícios. Uma obra sem o Prumo: mensagens, papéis e ligações espalhados em 18 lugares. Com o Prumo, tudo se alinha. Pelo WhatsApp, o responsável pergunta se a elétrica fecha hoje, recebe o resumo da obra e confirma a compra de 80 metros de cabo; o sistema atualiza na hora, no computador e no aplicativo. Ao mandar o projeto da varanda, o Prumo, com a IA em homologação, lê pontos de luz, pontos de água, forro de gesso e pintura e prepara um rascunho de orçamento de 1.800 reais para a sua revisão. Depois da aprovação do cliente, cria o grupo da obra com a equipe e arquiva projetos, fotos e checklist. A conversa pelo WhatsApp está em implantação.</p>
   <div class="vp">
     <div class="bg" aria-hidden="true">
@@ -1225,7 +1285,7 @@ a.btn { text-decoration: none; }
         <div class="cap c10"><h2>No app, a mesma obra.</h2></div>
         <div class="cap c11"><h2>Mande o projeto.</h2></div>
         <div class="cap c12"><h2>Orçamento em 3&nbsp;minutos.</h2></div>
-        <div class="cap c13"><h2>Aprovado. O Prumo monta o grupo.</h2></div>
+        <div class="cap c13"><h2>Aprovado. Registrado na obra.</h2></div>
         <div class="cap c14"><h2>Cada arquivo vai para a obra.</h2></div>
         <div class="cap c15"><h2>E tem muito mais.</h2></div>
         <div class="cap fin c16"><h2>Uma obra. Um lugar.</h2></div>
@@ -1238,6 +1298,7 @@ a.btn { text-decoration: none; }
     <div class="grain"></div>
     <header class="bar">
       <span class="bar-l"><span class="brand"><i class="logo-img"></i>PRUMO</span><span class="clock" aria-hidden="true"><span class="dn">Sex </span><span class="hm">07:40</span></span></span>
+      <p class="nar"><b>1/6</b><span>Sem o Prumo: a informação da obra fica espalhada em mensagens, papéis e planilhas.</span></p>
       <span class="hud" aria-hidden="true"><b>6</b><span class="hlab"><span class="hud-l">lugares</span><span class="hud-x"> para procurar</span></span></span>
       <span class="bar-r">
         <span class="tag">Protótipo<span class="tx"> · dados fictícios</span></span>
@@ -1248,12 +1309,12 @@ a.btn { text-decoration: none; }
     <div class="hint">Role para ver o antes e o depois</div>
     <p class="reel-d" aria-hidden="true"><b></b><span></span></p>
     <nav class="chapters" aria-label="Capítulos da história">
-      <button type="button" class="on" aria-current="step"><b>1</b><span>O problema</span></button>
+      <button type="button" class="on" aria-current="step"><b>1</b><span>Sem o Prumo</span></button>
       <button type="button"><b>2</b><span>WhatsApp</span></button>
-      <button type="button"><b>3</b><span>Sistema</span></button>
+      <button type="button"><b>3</b><span>Com o Prumo</span></button>
       <button type="button"><b>4</b><span>Orçamento</span></button>
-      <button type="button"><b>5</b><span>Equipe</span></button>
-      <button type="button"><b>6</b><span>Recursos</span></button>
+      <button type="button"><b>5</b><span>Arquivos</span></button>
+      <button type="button"><b>6</b><span>Módulos</span></button>
       <span class="ch-bar"><i></i></span>
     </nav>
   </div>
@@ -1261,6 +1322,7 @@ a.btn { text-decoration: none; }
 
 <nav class="sbar" aria-label="Site">
   <span class="brand"><i class="logo-img"></i>PRUMO</span>
+  <a class="sb-fl" href="#filme">Como funciona</a>
   <a href="#modulos">Módulos</a>
   <a class="sb-pl" href="#planos">Planos</a>
   <a class="sb-fq" href="#faq">Perguntas</a>
@@ -1283,17 +1345,23 @@ a.btn { text-decoration: none; }
           <g><rect x="960" y="210" width="26" height="12"/><path d="M973 222V470M965 470h16l-8 14z"/><rect x="945" y="486" width="56" height="30"/></g>
         </g>
       </svg>
-  <section class="s s-hero">
-    <div>
-      <h2>Coloque sua obra <em>no prumo.</em></h2>
-      <p class="lead">Obras, equipe, materiais, agenda, orçamento e financeiro num só sistema, por empresa e por obra. Telas da demonstração e, dito com clareza, o que ainda está em implantação.</p>
-      <div class="s-acts">
-        <a class="btn big" href="https://app.prumonaobra.com.br/auth.html?register=1" target="_blank" rel="noopener">Criar conta gratuita</a>
-        <a class="btn ghost big" data-app target="_blank" rel="noopener">Entrar na minha conta</a>
-      </div>
-      <p class="hero-f">Implantação acompanhada · Blumenau e Vale do Itajaí</p>
-    </div>
-    <figure class="shotbox"><img data-shot="obras" width="1600" height="1000" alt="Tela Obras do Prumo: 12 obras ativas e os cartões de três obras, com valores, pagamento e alertas."></figure>
+  <section class="s" id="quem">
+    <h2>Feito para quem toca obra.</h2>
+    <p class="lead">Para quem executa e administra obras: construtoras, arquitetos, marcenarias, eletricistas e empreiteiros. O cliente final recebe só um acesso de consulta à obra dele.</p>
+    <ul class="aud">
+      <li><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><h3>Arquitetos</h3><p>Projetos, obras e clientes acompanhados no mesmo lugar.</p></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-building"/></svg><h3>Construtoras</h3><p>Várias obras ao mesmo tempo, com a equipe e o financeiro de cada uma.</p></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-box"/></svg><h3>Marcenarias</h3><p>Orçamentos, materiais e prazos de cada obra.</p></li>
+      <li><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg><h3>Profissionais de obra</h3><p>Tarefas, fotos e horas do dia, pelo celular.</p></li>
+    </ul>
+    <h3 class="sub">Cinco perfis: cada pessoa vê o que precisa</h3>
+    <ol class="roles">
+      <li><b>Proprietário</b><span>Acesso completo, convites e administração dos perfis.</span></li>
+      <li><b>Gestor</b><span>Obras, pessoas, horas, agenda e documentos internos.</span></li>
+      <li><b>Financeiro</b><span>Resumo das obras, finanças, custos de horas e documentos financeiros.</span></li>
+      <li><b>Colaborador</b><span>Obras, tarefas, agenda, documentos e ponto atribuídos.</span></li>
+      <li><b>Cliente</b><span>Só as obras e documentos publicados para ele.</span></li>
+    </ol>
   </section>
   <section class="s" id="modulos">
     <h2>Tudo da obra, módulo por módulo.</h2>
@@ -1320,23 +1388,6 @@ a.btn { text-decoration: none; }
       <li><div class="dia-t"><b>10:15</b><p>A tarefa, quem faz e até quando.</p><small>Checklist da obra</small></div><figure class="crop" style="--x:28;--y:63;--w:42;--h:33"><img data-shot="checklist" width="1600" height="1000" alt="Tarefa Levantamento dos ambientes, com responsável Ana e prazo 28/10/2026."></figure></li>
       <li><div class="dia-t"><b>15:30</b><p>Faltam 80 m de cabo. Marca a compra, anexa a nota.</p><small>Materiais</small></div><figure class="crop" style="--x:31;--y:65.5;--w:57.5;--h:30.5"><img data-shot="materiais" width="1600" height="1000" alt="Item Cabo flexível 2,5 mm: 80 faltando de 200, com os botões Marcar compra e Anexar nota."></figure></li>
       <li><div class="dia-t"><b>18:20</b><p>O aditivo de R$ 1.800 já está na obra certa.</p><small>Financeiro</small></div><figure class="crop" style="--x:29;--y:43;--w:62;--h:18"><img data-shot="financeiro" width="1600" height="1000" alt="Lançamento Ponto adicional de iluminação na varanda, aditivo de R$ 1.800,00."></figure></li>
-    </ol>
-  </section>
-  <section class="s" id="quem">
-    <h2>Feito para quem toca obra.</h2>
-    <ul class="aud">
-      <li><svg class="ico" aria-hidden="true"><use href="#i-file"/></svg><h3>Arquitetos</h3><p>Projetos, obras e clientes acompanhados no mesmo lugar.</p></li>
-      <li><svg class="ico" aria-hidden="true"><use href="#i-building"/></svg><h3>Construtoras</h3><p>Várias obras ao mesmo tempo, com a equipe e o financeiro de cada uma.</p></li>
-      <li><svg class="ico" aria-hidden="true"><use href="#i-box"/></svg><h3>Marcenarias</h3><p>Orçamentos, materiais e prazos de cada obra.</p></li>
-      <li><svg class="ico" aria-hidden="true"><use href="#i-users"/></svg><h3>Profissionais de obra</h3><p>Tarefas, fotos e horas do dia, pelo celular.</p></li>
-    </ul>
-    <h3 class="sub">Cinco perfis: cada pessoa vê o que precisa</h3>
-    <ol class="roles">
-      <li><b>Proprietário</b><span>Acesso completo, convites e administração dos perfis.</span></li>
-      <li><b>Gestor</b><span>Obras, pessoas, horas, agenda e documentos internos.</span></li>
-      <li><b>Financeiro</b><span>Resumo das obras, finanças, custos de horas e documentos financeiros.</span></li>
-      <li><b>Colaborador</b><span>Obras, tarefas, agenda, documentos e ponto atribuídos.</span></li>
-      <li><b>Cliente</b><span>Só as obras e documentos publicados para ele.</span></li>
     </ol>
   </section>
   <section class="s" id="planos">
@@ -2998,12 +3049,14 @@ a.btn { text-decoration: none; }
     applyMotion();
   });
   applyMotion();
-  const goTo = target => { if (lenis) lenis.scrollTo(target); else target.scrollIntoView(); };
+  sbar.classList.add('on'); // the page opens on the plain opening, above the film
+  const goTo = (target, offset = 0) => { if (lenis) lenis.scrollTo(target, { offset }); else window.scrollTo({ top: target.getBoundingClientRect().top + scrollY + offset }); };
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
     const target = $(a.getAttribute('href'));
     if (!target) return;
     e.preventDefault();
-    goTo(target);
+    // two pixels into the film, so the pinned story is already active when the scroll lands
+    goTo(target, target.id === 'filme' ? 2 : 0);
   }));
 
   // Captions rise word by word; a no-break space keeps a number with its unit.
@@ -3054,6 +3107,15 @@ a.btn { text-decoration: none; }
   const tmEl = $('.tm'), cnEl = $('.cn'), ptsEl = $('.pts-n'), agEl = $('.ag-n'), foEl = $('.fo-n'), piEl = $('.pi-n'), totalEl = $('.q-total'), timerEl = $('.timer'), timerN = $('.t-n');
   const phoneEl = $('.phone'), chaosEl = $('.chaos'), chatEl = $('.chat'), typedEl = $('.chat .wa-typed');
   const chBtns = $$('.chapters button'), chBar = $('.ch-bar i');
+  // one plain sentence per chapter: what the visitor is looking at, and what is still being rolled out
+  const nar = $('.nar'), NAR = [
+    'Sem o Prumo: a informação da obra fica espalhada em mensagens, papéis e planilhas.',
+    'Com o Prumo: você pergunta no WhatsApp e a resposta vem da obra. Canal em implantação.',
+    'A mesma obra no computador e no celular: tarefas, materiais, fotos e dinheiro.',
+    'Mande o projeto e receba o orçamento pronto para revisar. IA em homologação.',
+    'Cada arquivo e cada foto vão para a obra certa, sem procurar em pastas.',
+    'Os nove módulos do Prumo, um por um.',
+  ];
   const pad = n => String(n).padStart(2, '0');
   const ms = v => { const m = Math.round(v); return `${Math.floor(m / 60)}:${pad(m % 60)}`; };
   const hhmm = v => { const m = Math.round(v); return `${pad(Math.floor(m / 60))}:${pad(m % 60)}`; };
@@ -3107,6 +3169,8 @@ a.btn { text-decoration: none; }
     while (k < chapters.length - 1 && t >= chapters[k + 1]) k++;
     if (k !== chOn) {
       chOn = k;
+      nar.firstElementChild.textContent = `${k + 1}/6`;
+      nar.lastElementChild.textContent = NAR[k];
       chBtns.forEach((b, i) => {
         b.classList.toggle('on', i === k);
         b.classList.toggle('done', i < k);
@@ -3260,9 +3324,11 @@ a.btn { text-decoration: none; }
       scrollTrigger: {
         trigger: '.film', start: 'top top', end: () => '+=' + Math.round(innerHeight * 18),
         pin: true, anticipatePin: 1, scrub: .6, invalidateOnRefresh: true,
-        onToggle: self => { vp.classList.toggle('off', !self.isActive); sbar.classList.toggle('on', !self.isActive && self.progress === 1); },
+        onToggle: self => { vp.classList.toggle('off', !self.isActive); sbar.classList.toggle('on', !self.isActive); },
         onLeave: () => sbar.classList.add('on'),
         onEnterBack: () => sbar.classList.remove('on'),
+        onEnter: () => sbar.classList.remove('on'),
+        onLeaveBack: () => sbar.classList.add('on'),
       },
     });
 
@@ -4030,7 +4096,7 @@ a.btn { text-decoration: none; }
   $$('.mg-all, .mg-b[data-p]').forEach(b => b.addEventListener('click', () => openPanel(b.dataset.p, 'grid')));
 
   // Landing: each block settles into place once as it enters; the drawn lines of the site trace themselves in.
-  const rvEls = $$('.s-hero > div, .s-hero .shotbox, .mg > li, .dia > li, .aud > li, .roles > li, .plan, .truth > div, .sec > li, .q, .site .s > h2, .site .s > .lead, .s-end > :not(.end-bob), .recargas, .plan-note');
+  const rvEls = $$('.open-t, .open-shot, .mg > li, .dia > li, .aud > li, .roles > li, .plan, .truth > div, .sec > li, .q, .site .s > h2, .site .s > .lead, .s-end > :not(.end-bob), .recargas, .plan-note');
   rvEls.forEach(el => { el.classList.add('rv'); el.style.transitionDelay = Math.min([...el.parentNode.children].indexOf(el), 7) * 55 + 'ms'; });
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px', threshold: .1 });
   rvEls.forEach(el => io.observe(el));
@@ -4038,7 +4104,7 @@ a.btn { text-decoration: none; }
   const siteIo = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { $('.site').classList.add('in'); siteIo.disconnect(); } });
   siteIo.observe($('.site'));
   // the hero screen leans toward the pointer (mouse only, full motion)
-  const hero = $('.s-hero'), shotbox = $('.shotbox', hero);
+  const hero = $('.open'), shotbox = $('.shotbox', hero);
   hero.addEventListener('pointermove', e => {
     if (reduced || !finePointer.matches) return;
     const r = hero.getBoundingClientRect(), dx = (e.clientX - r.left) / r.width - .5, dy = (e.clientY - r.top) / r.height - .5;

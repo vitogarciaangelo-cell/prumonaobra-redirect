@@ -3673,7 +3673,7 @@ a.btn { text-decoration: none; }
   };
   // grid tiles: three things you do in each module, from the same source as the films
   const INFO = { checklist: ['Tarefas', 'Responsável', 'Prazo'], pessoas: ['Equipe', 'Clientes', 'Fornecedores'] };
-  $$('.mg-b').forEach(b => { const k = (MODS[b.dataset.m] || INFO[b.dataset.info] && { k: INFO[b.dataset.info] } || {}).k; if (k) $('.fi + span', b).insertAdjacentHTML('beforeend', `<span class="mg-k">${k.join(' · ')}</span>`); });
+  $$('.mg-b').forEach(b => { const k = MODS[b.dataset.m] ? MODS[b.dataset.m].k : INFO[b.dataset.p]; if (k) $('.fi + span', b).insertAdjacentHTML('beforeend', `<span class="mg-k">${k.join(' · ')}</span>`); });
   // Each module's short film: the hook, the pain it solves (an act-1 card), the real screen with two details picked out,
   // then what works today, what is being rolled out, and what does not exist yet.
   // rings are [x, y, w, h] in % of the source capture; they are converted to the cropped frame when the film opens.

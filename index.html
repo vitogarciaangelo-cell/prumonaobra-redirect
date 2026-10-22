@@ -131,15 +131,15 @@ html:not([data-modo=detalhes]) .nada { display:none; }
    Entrar as an icon and "Criar conta" (the full names are kept for screen readers). */
 #topo .cel { display:none; }
 @media (max-width:599px) {
-  #topo { grid-template-columns:auto minmax(0,1fr) auto; gap:8px; padding-block:6px; }
-  #topo .marca .nm, #topo :is(.modo,.acoes) .lg, #topo .acoes .gr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  #topo { grid-template-columns:auto minmax(0,1fr) auto; gap:6px; padding-block:6px; }
+  #topo .marca .nm, #topo .modo .lg, #topo .acoes .gr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
   #topo .cel { display:inline; }
   #topo .modo { justify-self:center; padding:3px; }
-  #topo .modo button { height:30px; padding:0 9px; font-size:12.5px; }
-  #topo .acoes { gap:6px; }
-  #topo .acoes .btn { min-height:36px; padding:0 11px; font-size:13px; }
-  #topo .acoes .entrar { width:36px; padding:0; }
-  #topo .acoes .entrar .ic { width:17px; height:17px; }
+  #topo .marca img { width:22px; height:22px; }
+  #topo .modo button { height:30px; padding:0 7px; font-size:12px; }
+  #topo .acoes { gap:5px; }
+  #topo .acoes .btn { min-height:36px; padding:0 9px; font-size:12.5px; }
+  #topo .acoes .entrar .ic { display:none; }
 }
 }
 </style>
@@ -200,7 +200,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 #inicio .fic { color:var(--mute); font-size:13px; }
 
 @media (max-width:599px) {
-  #inicio { padding-block:16px 32px; gap:24px; }
+  #inicio { padding-block:12px 20px; gap:18px; }
   /* a shorter phone screen on phones, so the page stays short */
   #inicio .scr { aspect-ratio:360 / 590; }
   #inicio .tela { height:590px; }
@@ -628,7 +628,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 <style>
 /* "Em 10 segundos": three glass cards, one job each, every card with its own "Ver mais" */
 #como .cartoes { list-style:none; padding:0; margin-top:36px; display:grid; gap:16px; align-items:start; }
-@media (max-width:599px) { #como .cartoes { margin-top:24px; gap:12px; } #como .cartao { padding:18px 18px 10px; } }
+@media (max-width:599px) { #como .cartoes { margin-top:20px; gap:10px; } #como .cartao { padding:16px 16px 8px; } }
 @media (min-width:700px) { #como .cartoes { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 #como .cartao { position:relative; overflow:hidden; border-radius:24px; padding:24px 24px 14px; }
 #como .cartao::before { content:""; position:absolute; left:-40px; top:-120px; width:260px; height:220px; border-radius:50%; background:radial-gradient(closest-side,rgba(57,213,245,.1),transparent); pointer-events:none; }
@@ -684,8 +684,8 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 #confianca details.mais > p { font-size:14.5px; padding-bottom:8px; }
 #confianca details.mais a { color:var(--cyan); text-underline-offset:3px; }
 @media (max-width:599px) {
-  #confianca .itens { margin-top:20px; gap:8px; }
-  #confianca .item { padding:14px 16px 4px; border-radius:18px; }
+  #confianca .itens { margin-top:16px; gap:8px; }
+  #confianca .item { padding:12px 14px 2px; border-radius:18px; }
   #confianca .item { row-gap:4px; }
   #confianca .item h3 { flex-direction:row; align-items:center; gap:12px; font-size:17px; }
   #confianca .item h3 .ic { width:22px; height:22px; }
@@ -750,7 +750,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 /* the stage: a desk surface with a dotted texture, like the app's chat background */
 #antes .palco { position:relative; height:440px; border-radius:28px; overflow:clip; container-type:size; pointer-events:none;
   background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.03) 0 2px,transparent 3px) 0 0/26px 26px,rgba(255,255,255,.025); border:1px solid var(--line); }
-@media (max-width:599px) { #antes .palco { height:344px; } }
+@media (max-width:599px) { #antes .palco { height:300px; } }
 @media (min-width:900px) { #antes .palco { height:430px; } }
 #antes .it { position:absolute; left:0; top:0; height:112px; transform-origin:0 0; box-shadow:0 12px 24px -10px rgba(0,0,0,.8);
   transform:translate(calc(var(--ax) * 1cqw),calc(var(--ay) * 1cqh)) rotate(calc(var(--ar) * 1deg)) scale(var(--s,1));
@@ -910,7 +910,8 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 @media (max-width:599px) {
   #comeca .fio { padding-left:54px; padding-bottom:56px; }
   #comeca .fio::before { left:17px; }
-  #comeca .passo { padding:16px 16px 8px; }
+  #comeca .passo { padding:14px 14px 6px; }
+  #comeca .passos { gap:12px; }
   #comeca .passo::before { left:-54px; top:14px; width:36px; height:36px; font-size:16px; }
   #comeca .bob { left:3px; }
 }
@@ -1306,7 +1307,7 @@ html.trava { overflow:hidden; }
 @media (min-width:600px) and (max-width:899px) { #verdade .cols { grid-template-columns:repeat(2,minmax(0,1fr)); } #verdade .col[data-estado=funciona] { grid-column:1 / -1; } }
 @media (max-width:599px) {
   /* phones: the module names are already in the folders above; the chips come with "Com detalhes" */
-  html:not([data-modo=detalhes]) #verdade .itens { display:none; }
+  #verdade .itens { display:none; }
   #verdade .cols { gap:12px; margin-top:28px; }
   #verdade .col { row-gap:6px; padding:16px 16px 10px; }
   #verdade .col h3 { font-size:19px; }
@@ -1391,7 +1392,7 @@ html.trava { overflow:hidden; }
 @media (min-width:1100px) { #planos .rec { transform:translateY(-14px); } }
 @media (max-width:1099px) { #planos .cards { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 /* phones: the four plans at once in a 2x2 grid with the price, who it is for and the button;
-   the sentence and the AI credits move into "Ver o que inclui" (.cel), the plan name stays in the button for screen readers (label and name in one span, so the button gap adds no second space) */
+   the sentence and the AI credits move into "Ver o que inclui" (.cel), the button keeps the plan name (label and name in one span, so the button gap adds no second space) */
 #planos .cel { display:none; }
 @media (max-width:599px) {
   #planos .cards { grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 10px; margin-top:34px; }
@@ -1401,8 +1402,9 @@ html.trava { overflow:hidden; }
   #planos .preco span { flex-basis:100%; font-size:13px; }
   #planos .frase { display:none; }
   #planos .meta span { padding:4px 8px; font-size:11.5px; white-space:nowrap; }
-  #planos .card .btn { padding:0 10px; }
-  #planos .btn .pl { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+  /* the button names the plan: "Escolher" on one line, the plan name under it */
+  #planos .card .btn { min-height:48px; padding:6px 8px; font-size:13px; line-height:1.2; white-space:normal; text-align:center; }
+  #planos .card .btn > span:first-child { display:grid; }
   #planos .selo { top:-12px; right:auto; left:50%; transform:translateX(-50%); white-space:nowrap; }
   #planos .card details.mais > summary { font-size:14px; }
   #planos .cel { display:block; margin-bottom:8px; font-size:14.5px; }

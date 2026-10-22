@@ -89,6 +89,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 /* phones: a tighter rhythm, so the page stays short without hiding anything */
 @media (max-width:599px) {
   .sec { padding-block:20px; }
+  .sec-h { gap:8px; }
   details.mais { margin-top:10px; }
   details.mais > summary { padding-block:5px; }
 }
@@ -135,7 +136,8 @@ html:not([data-modo=detalhes]) .nada { display:none; }
   #topo .marca .nm, #topo .modo .lg, #topo .acoes .gr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
   #topo .cel { display:inline; }
   #topo .modo { justify-self:center; padding:3px; }
-  #topo .marca img { width:22px; height:22px; }
+  #topo .marca { min-width:24px; min-height:24px; }
+  #topo .marca img { width:24px; height:24px; }
   #topo .modo button { height:30px; padding:0 7px; font-size:12px; }
   #topo .acoes { gap:5px; }
   #topo .acoes .btn { min-height:36px; padding:0 9px; font-size:12.5px; }
@@ -519,7 +521,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 <div class="view on" data-v="painel"> <section class="folders"> <div class="add glass">+</div>
 <article class="folder"><div class="peek"><div class="mini m1"><b>Orçamento · Forro de gesso da sala</b>Carla Andrade<span class="v">R$ 4.320</span><span class="ln"></span><span class="ln" style="width:60%"></span></div><div class="mini m2"><span class="tg" style="background:#fff1d6;color:#7a4f00">esperando</span><b>Orçamento · Troca do piso da cozinha</b>Carla Andrade<span class="v">R$ 2.960</span><span class="bars"><i style="height:40%"></i><i style="height:70%"></i><i class="h" style="height:100%"></i><i style="height:55%"></i><i style="height:80%"></i></span></div></div>
 <div class="f-front glass"><span class="count">4</span><b class="hd">Orçamentos para aprovar</b><p>Prontos para você conferir e enviar</p><span class="dots3"><i></i></span></div></article>
-<article class="folder"><div class="peek"><div class="mini m1"><b>NF 4.812</b>Elétrica Vale<span class="v">R$ 3.940</span><span class="ln"></span><span class="ln" style="width:50%"></span></div><div class="mini m2"><span class="tg" style="background:#dff7ec;color:#0d5c3c">guardada</span><b>NF 9.033</b>Gesso Vale<span class="v">R$ 2.600</span><span class="bars"><i style="height:60%"></i><i class="h" style="height:90%"></i><i style="height:45%"></i><i style="height:70%"></i><i style="height:35%"></i></span></div></div>
+<article class="folder"><div class="peek"><div class="mini m1"><b>NF 9.047</b>Ferragens Moser<span class="ln"></span><span class="ln" style="width:50%"></span></div><div class="mini m2"><span class="tg" style="background:#dff7ec;color:#0d5c3c">guardada</span><b>NF 9.033</b>Elétrica Centro<span class="bars"><i style="height:60%"></i><i class="h" style="height:90%"></i><i style="height:45%"></i><i style="height:70%"></i><i style="height:35%"></i></span></div></div>
 <div class="f-front glass"><span class="count">14</span><b class="hd">Notas fiscais</b><p>Deste mês, já na obra certa</p><span class="dots3"><i></i></span></div></article>
 <article class="folder"><div class="peek"></div>
 <div class="f-front glass"><span class="count">0</span><b class="hd">Comprovantes</b><p>Nenhum sem obra</p><span class="dots3"><i></i></span></div></article> <div class="drop">Arraste aqui uma pasta ou qualquer outro bloco</div> </section> <section class="big glass"> <div class="hero"><b class="hd">Dinheiro da empresa</b><p class="sub">Outubro · todas as obras</p><p class="lab">Sobrou no mês</p><p class="num">90.947<small>,31</small></p>
@@ -1122,7 +1124,7 @@ html.trava { overflow:hidden; }
       <div class="f-front glass"><span class="f-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span><h3><button type="button" class="abre" aria-haspopup="dialog">Agenda</button></h3><p class="frase nada">Quem vai a qual obra, em que dia, a que horas e onde.</p><p class="selos"><span class="honest ok">Funciona</span></p></div>
     </li>
     <li class="pasta" data-m="ponto">
-      <div class="peek" aria-hidden="true"><div class="mini m1"><b>Ana</b><span class="s">entrou 07:15</span><span class="ln"></span><span class="ln c"></span></div><div class="mini m2"><b>Marcos · hoje</b><span class="row"><i>Entrada</i>07:02</span><span class="row"><i>Intervalo</i>12:00</span><span class="row"><i>Saída</i>17:10</span></div></div>
+      <div class="peek" aria-hidden="true"><div class="mini m1"><b>Juliana</b><span class="s">desde 07:30</span><span class="ln"></span><span class="ln c"></span></div><div class="mini m2"><span class="tg a">aberta</span><b>Marcos · hoje</b><span class="row"><i>Entrada</i>07:02</span></div></div>
       <div class="f-front glass"><span class="f-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><h3><button type="button" class="abre" aria-haspopup="dialog">Cartão Ponto</button></h3><p class="frase nada">As horas de cada pessoa em cada obra, e quanto elas custam.</p><p class="selos"><span class="honest ok">Funciona</span><span class="honest nao">Não é ponto oficial</span></p></div>
     </li>
     <li class="pasta" data-m="financeiro">
@@ -1592,7 +1594,7 @@ html.trava { overflow:hidden; }
 #quem .canal b { display:block; font-weight:400; font-size:15.5px; }
 #quem .canal span span { display:block; color:var(--fg-2); font-size:14px; }
 #quem details.mais { margin-top:12px; }
-@media (max-width:599px) { #quem .painel { padding:20px 16px; gap:14px; } #quem .canal { padding:10px 12px; } #quem .ci { width:36px; height:36px; } #quem .canal { grid-template-columns:36px minmax(0,1fr); } #quem .canal .seta { display:none; } }
+@media (max-width:599px) { #quem .painel { padding:16px 14px; gap:12px; } #quem .canal { padding:10px 12px; } #quem .ci { width:36px; height:36px; } #quem .canal { grid-template-columns:36px minmax(0,1fr); } #quem .canal .seta { display:none; } }
 </style>
 <section class="sec" id="quem" aria-labelledby="quem-t">
   <div class="painel glass">
@@ -1643,11 +1645,11 @@ html.trava { overflow:hidden; }
 @media (min-width:900px) { #final .ft-marca { grid-column:auto; } }
 /* phones: the brand is already in the top bar; the three link columns sit side by side in two rows */
 @media (max-width:599px) {
-  #final .rodape { gap:18px; margin-top:28px; padding-top:22px; font-size:14px; }
+  #final .rodape { gap:14px; margin-top:22px; padding-top:18px; font-size:14px; }
   #final .ft-marca { display:none; }
   /* the three link columns side by side, so the footer stays short */
   #final .ft-cols { grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px 12px; font-size:13px; }
-  #final .ft-col ul { gap:6px; }
+  #final .ft-col ul { gap:4px; }
   #final .ft-base { padding-top:14px; }
 }
 #final .ft-nome { display:flex; align-items:center; gap:10px; color:var(--fg); font-size:18px; font-weight:400; }
@@ -1700,7 +1702,7 @@ html.trava { overflow:hidden; }
       </nav>
       <nav class="ft-col" aria-label="Confiança">
         <p class="ft-t">Confiança</p>
-        <ul><li><a href="#confianca">Segurança</a></li><li><a href="https://app.prumonaobra.com.br/privacidade.html" target="_blank" rel="noopener">Privacidade<span class="sr-only"> (abre em nova aba)</span></a></li><li><a href="https://app.prumonaobra.com.br/termos.html" target="_blank" rel="noopener">Termos de uso<span class="sr-only"> (abre em nova aba)</span></a></li><li><a href="https://app.prumonaobra.com.br/politica-cobranca.html" target="_blank" rel="noopener">Política de cobrança<span class="sr-only"> (abre em nova aba)</span></a></li><li><a href="https://app.prumonaobra.com.br/politica-ia.html" target="_blank" rel="noopener">Política de IA<span class="sr-only"> (abre em nova aba)</span></a></li></ul>
+        <ul><li><a href="#confianca">Segurança</a></li><li><a href="https://app.prumonaobra.com.br/privacidade.html" target="_blank" rel="noopener">Privacidade<span class="sr-only"> (abre em nova aba)</span></a></li><li><a href="https://app.prumonaobra.com.br/termos.html" target="_blank" rel="noopener">Termos de uso<span class="sr-only"> (abre em nova aba)</span></a></li><li><a href="https://app.prumonaobra.com.br/politica-cobranca.html" target="_blank" rel="noopener">Política de cobrança<span class="sr-only"> (abre em nova aba)</span></a></li><li><a href="https://app.prumonaobra.com.br/politica-ia.html" target="_blank" rel="noopener">Política de IA<span class="sr-only"> (abre em nova aba)</span></a></li><li><a href="https://app.prumonaobra.com.br/politica-cookies.html" target="_blank" rel="noopener">Política de cookies<span class="sr-only"> (abre em nova aba)</span></a></li></ul>
       </nav>
     </div>
     <div class="ft-base">

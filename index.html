@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-TDDLZPzrc8tfFID1Y9CmXZL0X96OAhkn0zme1iVmxNk=' 'sha256-G70Wxvibb33NJCxTgGbec6hwoL87+ySmFK22bic7TPM=' 'sha256-6AfNbLN2lwNPEbmQI059qRX8TsSAdEr4b+5pQ+CSpEs=' 'sha256-YpL8nMQ5fr6yugqEeMV/S7s+/Rd1Isd4HBOqM7lk2M8='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="prumo-demo-numeros" content="e57911b5f2399236">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prumo Instalações · Gestão de obras num só lugar</title>
 <meta name="description" content="O Prumo Instalações junta obras, equipe, materiais, agenda, orçamento e financeiro num só sistema, por empresa e por obra. Implantação acompanhada em Blumenau e no Vale do Itajaí.">
@@ -48,6 +49,9 @@ a { color:inherit; }
 img, svg { display:block; max-width:100%; }
 ::selection { background:rgba(57,213,245,.35); color:var(--fg); }
 :focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
+.pular { position:fixed; left:12px; top:-60px; z-index:60; padding:10px 16px; border-radius:999px; background:var(--fg); color:#0a0d12; font-weight:500; text-decoration:none; }
+.pular:focus { top:12px; }
+main:focus { outline:none; }
 .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 .ic { width:18px; height:18px; flex:none; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; }
 .glass { background:var(--glass); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(255,255,255,.08); box-shadow:0 24px 50px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.06); }
@@ -100,6 +104,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 </head>
 <body>
 
+<a class="pular" href="#conteudo">Ir para o conteúdo</a>
 <style>
 #topo { position:fixed; inset:0 0 auto; z-index:50; min-height:var(--topo); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:8px 12px;
   padding:10px max(var(--gut),calc((100% - 1160px) / 2)); border-width:0 0 1px; border-radius:0; }
@@ -139,7 +144,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
   </div>
 </header>
 
-<main>
+<main id="conteudo" tabindex="-1">
 <style>
 #inicio { display:grid; gap:40px; padding-block:32px 64px; overflow-x:clip; }
 #inicio .txt { display:grid; justify-items:start; align-content:center; gap:28px; }
@@ -251,7 +256,8 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 #inicio .tela .filters span { height:34px; padding:0 14px; background:rgba(255,255,255,.06); color:var(--fg-2); font-size:13px; } #inicio .tela .filters svg { width:12px; height:12px; opacity:.6; } #inicio .tela .lab { color:var(--mute); font-size:13px; margin-top:22px; }
 #inicio .tela .num { font-weight:200; font-size:62px; letter-spacing:-.035em; line-height:1; margin-top:4px; } #inicio .tela .num small { font-size:30px; color:var(--mute); } #inicio .tela .kp { display:grid; grid-template-columns:1fr 1fr; gap:16px 18px; margin-top:22px; } #inicio .tela .kp span { display:block; color:var(--mute); font-size:12.5px; }
 #inicio .tela .kp b { display:block; font-weight:300; font-size:24px; letter-spacing:-.02em; margin-top:2px; white-space:nowrap; } #inicio .tela .chartw { position:relative; margin-top:30px; } #inicio .tela .tip { position:absolute; left:300px; top:70px; width:210px; padding:14px 16px; border-radius:16px; } #inicio .tela .tip b { font-weight:300; font-size:24px; color:var(--cyan); }
-#inicio .tela .tip span { display:block; color:var(--mute); font-size:12.5px; margin-top:4px; } #inicio .tela .tip svg { position:absolute; right:12px; top:12px; width:10px; height:10px; } #inicio .tela .row2 { display:grid; grid-template-columns:1fr 1.25fr; gap:16px; margin-top:16px; flex:1; min-height:0; }
+#inicio .tela .tip span { display:block; color:var(--mute); font-size:12.5px; margin-top:4px; }
+#inicio .tela .tip.neg b { color:var(--bad); } #inicio .tela .tip svg { position:absolute; right:12px; top:12px; width:10px; height:10px; } #inicio .tela .row2 { display:grid; grid-template-columns:1fr 1.25fr; gap:16px; margin-top:16px; flex:1; min-height:0; }
 #inicio .tela .card { border-radius:24px; padding:18px 22px; position:relative; overflow:hidden; } #inicio .tela .acts { position:absolute; right:16px; top:16px; display:flex; gap:6px; } #inicio .tela .acts span { width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.06); display:grid; place-items:center; color:var(--fg-2); }
 #inicio .tela .gauge { position:absolute; left:50%; bottom:-150px; transform:translateX(-50%); max-width:none; } #inicio .tela .g-lab { position:absolute; left:50%; bottom:22px; transform:translateX(-50%); text-align:center; }
 #inicio .tela .g-lab b { display:block; font-weight:200; font-size:44px; letter-spacing:-.03em; line-height:1; } #inicio .tela .g-lab span { color:var(--mute); font-size:13px; } #inicio .tela .g-chip { position:absolute; left:50%; top:96px; transform:translateX(-50%); background:var(--fg); color:#0a0d12; font-size:11px; font-weight:500; padding:4px 10px; border-radius:999px; }
@@ -322,9 +328,8 @@ html:not([data-modo=detalhes]) .nada { display:none; }
   #inicio .tela .mh { margin:0 2px 12px 6px; }
   #inicio .tela .mh .hd { font-size:26px; }
   #inicio .tela :is(.ia,.wa,.di,.se) { grid-template-columns:minmax(0,1fr); margin-top:0; padding-bottom:0; }
-  #inicio .tela .big { margin-top:0; grid-template-columns:minmax(0,1fr); padding:20px; }
-  #inicio .tela .row2 { display:grid; grid-template-columns:minmax(0,1fr); flex:1; margin-top:10px; }
-  #inicio .tela .row2 .card:first-child, #inicio .tela .row2 :is(.acts,.tip2,.sub) { display:none; }
+  #inicio .tela .big { flex:1; margin-top:0; grid-template-columns:minmax(0,1fr); grid-template-rows:auto 1fr; padding:20px; }
+  #inicio .tela .row2 { display:none; }
   #inicio .tela .big .lab { margin-top:22px; }
   #inicio .tela .num { font-size:66px; }
   #inicio .tela .kp { margin-top:24px; gap:18px; }
@@ -466,6 +471,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 <rect class="now" x="610" y="26" width="140" height="180" rx="14" style="fill:var(--ink)" opacity=".035"></rect><g style="stroke:var(--ink)" stroke-opacity=".1" stroke-dasharray="6 10"><path d="M20 50H780"></path><path d="M20 128H780"></path></g>
 <path data-m-linha="" fill="url(#inicio-hatch)" d="M30 206 95 206 160 206 225 189 290 177 355 160 420 118 485 107 550 89 615 81L615 152 550 175 485 184 420 187 355 193 290 200 225 200 160 206 95 206 30 206Z"></path><g data-m-linha="" style="fill:var(--fg)"><circle cx="30" cy="206" r="3.5"></circle><circle cx="95" cy="206" r="3.5"></circle><circle cx="160" cy="206" r="3.5"></circle><circle cx="225" cy="189" r="3.5"></circle><circle cx="290" cy="177" r="3.5"></circle><circle cx="355" cy="160" r="3.5"></circle><circle cx="420" cy="118" r="3.5"></circle><circle cx="485" cy="107" r="3.5"></circle><circle cx="550" cy="89" r="3.5"></circle><circle cx="615" cy="81" r="3.5"></circle></g><g data-m-linha="" style="fill:var(--dim)"><circle cx="30" cy="206" r="3"></circle><circle cx="95" cy="206" r="3"></circle><circle cx="160" cy="206" r="3"></circle><circle cx="225" cy="200" r="3"></circle><circle cx="290" cy="200" r="3"></circle><circle cx="355" cy="193" r="3"></circle><circle cx="420" cy="187" r="3"></circle><circle cx="485" cy="184" r="3"></circle><circle cx="550" cy="175" r="3"></circle><circle cx="615" cy="152" r="3"></circle></g>
 <g font-family="Outfit" font-size="13" style="fill: var(--mute); font-size: 12.8211px;"><text x="856" y="54" text-anchor="end">200&nbsp;mil</text><text x="856" y="132" text-anchor="end">100&nbsp;mil</text><text x="615" y="67" text-anchor="middle" style="fill:var(--fg)">hoje</text><g text-anchor="middle"><text x="95" y="236">1ª semana</text><text x="290" y="236">2ª semana</text><text x="485" y="236">3ª semana</text><text x="680" y="236" style="fill:var(--fg)">4ª semana</text></g></g></svg>
+<div class="tip glass neg"><b>-R$ 20.029,44</b><span>sobra · 22 – 25 de out.</span></div>
  </div> </section> <section class="row2"> <article class="card glass"><b class="hd">Andamento das obras</b><p class="sub">Média das 12 obras ativas</p>
 <span class="acts"><span><svg class="i" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16"/></svg></span><span><i style="width:3px;height:3px;border-radius:50%;background:#eef2f6;box-shadow:-6px 0 0 #eef2f6,6px 0 0 #eef2f6"></i></span></span>
 <svg class="gauge" width="330" height="330" viewBox="0 0 380 380"><circle cx="190" cy="190" r="160" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="16"/><path d="M30 190A160 160 0 0 1 280 58" fill="none" stroke="#39d5f5" stroke-width="16" stroke-linecap="round"/></svg> <span class="g-chip">no prazo: 10 de 12</span><div class="g-lab"><b>52%</b><span>pronto</span></div></article> <article class="card glass"><b class="hd">Gastos por dia</b><p class="sub">Últimos 10 dias</p>

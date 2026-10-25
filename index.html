@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-TDDLZPzrc8tfFID1Y9CmXZL0X96OAhkn0zme1iVmxNk=' 'sha256-G70Wxvibb33NJCxTgGbec6hwoL87+ySmFK22bic7TPM=' 'sha256-EXeS9atckbp4qc5a1WH35RclTcAJOVqfEXLPv5LA/9E=' 'sha256-YpL8nMQ5fr6yugqEeMV/S7s+/Rd1Isd4HBOqM7lk2M8='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-TDDLZPzrc8tfFID1Y9CmXZL0X96OAhkn0zme1iVmxNk=' 'sha256-G70Wxvibb33NJCxTgGbec6hwoL87+ySmFK22bic7TPM=' 'sha256-fk1Pf7XNSzsxfnFNcIsVKUhMWb1pWR4azw2dixpE3mw=' 'sha256-YpL8nMQ5fr6yugqEeMV/S7s+/Rd1Isd4HBOqM7lk2M8='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="prumo-demo-numeros" content="e8052cf766fb3558">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prumo Instalações · Gestão de obras num só lugar</title>
@@ -392,8 +392,8 @@ html:not([data-modo=detalhes]) .nada { display:none; }
   #inicio .tela .row2 { margin-top:10px; gap:12px; }
   #inicio .tela .row2 .card { padding:12px 18px; }
   #inicio .tela :is(.g-chip,.row2 .acts,.gauge,.row2 .sub,.row2 svg text) { display:none; }
-  #inicio .tela .g-lab { left:auto; right:18px; top:8px; bottom:auto; transform:none; text-align:right; }
-  #inicio .tela .g-lab b { font-size:22px; }
+  #inicio .tela .g-lab { left:auto; right:18px; top:8px; bottom:auto; transform:none; display:flex; align-items:baseline; gap:6px; }
+  #inicio .tela .g-lab b { font-size:20px; line-height:1; }
   #inicio .tela .g-lab span { font-size:12.5px; }
   #inicio .tela .tip2 { left:auto; right:18px; top:8px; width:auto; padding:0; background:none; border:0; box-shadow:none; backdrop-filter:none; display:flex; align-items:baseline; gap:6px; }
   #inicio .tela .tip2 b { font-size:20px; line-height:1; }
@@ -1119,8 +1119,8 @@ html.trava { overflow:hidden; }
       t: ['Pedido por texto, áudio ou até oito arquivos.', 'Modelos da sua empresa, com versões.', 'Revisão item a item, com desconto.', 'A situação de cada proposta.', 'Proposta com ou sem o preço de cada item.', 'O aceite cria as tarefas e lança o valor no Financeiro.', 'Propostas antigas guardadas, com o pedido original.'],
       e: [['ok', 'Modelos, propostas e aceite.'], ['dev', 'PDF da proposta. Está sendo corrigido.'], ['hom', 'A IA vai montar o rascunho e passar o áudio para texto. Você sempre revisa.'], ['dev', 'Envio da proposta pelo WhatsApp.'], ['nao', 'Orçamento automático pela planta, sem revisão.']] },
     compras: { r: ['Cada obra tem a lista do que falta comprar, quanto e em que unidade.', 'A compra fica marcada, com a nota junto.'], h: ['A mesma compra feita duas vezes por duas pessoas.', 'O que foi comprado sai da lista de todo mundo.'], p: 'A lista de materiais vem em todos os planos. A pesquisa de preços, nos planos pagos.',
-      c: ['Na obra, abra Materiais e adicione o item, a quantidade e a unidade.', 'Diga se ele será cobrado do cliente.', 'Comprou? Marque a compra e anexe a foto da nota.', 'O que for cobrado segue para o Financeiro.', 'Para comparar preços, descreva o item e a cidade.'],
-      t: ['Lista por obra: a comprar, comprados e sem preço.', 'A conta do que falta, como 80 de 200 metros.', 'Como cada material será cobrado do cliente.', 'Nota ou cupom guardado na obra.', 'Lista falada, ou tirada de um PDF, planilha ou foto, sempre revisada por você.', 'Cobranças em aberto para repassar ao cliente.'],
+      c: ['Na obra, abra Materiais e adicione o item, a quantidade e a unidade.', 'Diga se ele será cobrado do cliente.', 'Comprou? Marque a compra e anexe a foto da nota.', 'O que for cobrado segue para o Financeiro.', 'Para comparar preços pela IA, ainda em teste, descreva o item e a cidade.'],
+      t: ['Lista por obra: a comprar, comprados e sem preço.', 'A conta do que falta, como 80 de 200 metros.', 'Como cada material será cobrado do cliente.', 'Nota ou cupom guardado na obra.', 'Lista falada, ou tirada de PDF, planilha ou foto pela IA, ainda em teste.', 'Cobranças em aberto para repassar ao cliente.'],
       e: [['ok', 'Listas, compras e notas.'], ['hom', 'Pesquisa de preços na internet pela IA. Você confere antes de comprar.'], ['hom', 'Leitura de listas em PDF, planilha ou foto pela IA.'], ['nao', 'Fazer o pedido na loja pelo Prumo.']] },
     estoque: { r: ['Controla os materiais e as ferramentas da empresa, em cada local.', 'Ferramentas e maletas têm etiqueta QR para retirar e devolver.'], h: ['A ferramenta sai do depósito e ninguém sabe com quem ficou.', 'A retirada pelo QR mostra com quem ela está.'], p: 'Nos planos pagos.',
       c: ['Cadastre os materiais, as ferramentas e as maletas.', 'Gere as etiquetas QR e cole nas ferramentas.', 'Na retirada e na devolução, leia o QR.', 'Confirme os movimentos que esperam por você.', 'Veja o saldo e os alertas de cada local.'],
@@ -1136,7 +1136,7 @@ html.trava { overflow:hidden; }
       e: [['ok', 'Cadastro, obras, contas e perfis.'], ['hom', 'Convite e troca de senha por e-mail.'], ['av', 'Grupos de WhatsApp.'], ['nao', 'Acesso ao Prumo para fornecedores.']] },
     automacao: { r: ['Rotinas montadas por você: lembretes, conferências e resumos.', 'Nada começa sem a sua revisão, e tudo fica no histórico.'], h: ['A conferência da semana depende de alguém lembrar.', 'A rotina fica pronta, com o dia e o horário.'], p: 'No plano Business.',
       c: ['Toque em Nova rotina.', 'Preencha quando roda, o que confere e qual obra.', 'Revise e guarde.', 'Veja a rotina guardada, com o horário à vista.', 'Pause ou edite quando quiser.'],
-      t: ['Resumo das obras toda sexta às 16h, por exemplo.', 'Lembrete da agenda todo dia às 7h30.', 'Por horário, por dia da semana ou quando a agenda mudar.', 'Guardar, pausar, editar e excluir.', 'Histórico de cada rotina.', 'O horário de cada rotina, à vista.'],
+      t: ['Monte um resumo das obras para toda sexta às 16h.', 'Monte um lembrete da agenda para todo dia às 7h30.', 'Escolha por horário, por dia da semana ou quando a agenda mudar.', 'Guardar, pausar, editar e excluir.', 'Histórico de cada rotina.', 'O horário de cada rotina, à vista.'],
       e: [['ok', 'Montar, revisar e guardar rotinas.'], ['dev', 'Rodar sozinha no horário escolhido.'], ['hom', 'Montar a rotina conversando com a IA.'], ['dev', 'Receber o resultado no WhatsApp.']] },
   };
   const g = document.getElementById('m-gaveta');

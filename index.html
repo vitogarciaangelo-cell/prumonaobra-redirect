@@ -391,7 +391,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
   #inicio .tela .kp b { font-size:20px; }
   #inicio .tela .row2 { margin-top:10px; gap:12px; }
   #inicio .tela .row2 .card { padding:12px 18px; }
-  #inicio .tela :is(.g-chip,.row2 .acts) { display:none; }
+  #inicio .tela :is(.g-chip,.row2 .acts,.gauge,.row2 .sub,.row2 svg text) { display:none; }
   #inicio .tela .g-lab { left:auto; right:18px; top:8px; bottom:auto; transform:none; text-align:right; }
   #inicio .tela .g-lab b { font-size:22px; }
   #inicio .tela .g-lab span { font-size:12.5px; }
@@ -726,7 +726,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
   #antes[data-cena=prumo] .it > *, #antes[data-cena=prumo] .it > .tg.g { opacity:0; }
 }
 @container (max-width:440px) {
-  #antes .wa { --ax:4; --ay:5; }
+  #antes .wa { --ax:4; --ay:10; }
   #antes .nf { --ax:52; --ay:20; }
   #antes .pl { --ax:6; --ay:42; }
   #antes .lg { --ax:38; --ay:61; --ar:-8; }
@@ -912,8 +912,8 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 #modulos .mini .av { display:grid; place-items:center; width:22px; height:22px; border-radius:50%; background:#7fe0b5; color:#06080b; font-size:8.5px; font-weight:500; }
 #modulos .mini .av.b { background:#c9a7ff; }
 #modulos .mini .topo { display:flex; align-items:center; justify-content:space-between; gap:6px; }
-#modulos .mini .sw { width:22px; height:12px; border-radius:999px; background:linear-gradient(120deg,#16e0e7,#0879f5); position:relative; }
-#modulos .mini .sw::after { content:""; position:absolute; right:2px; top:2px; width:8px; height:8px; border-radius:50%; background:#fff; }
+#modulos .mini .sw { width:22px; height:12px; border-radius:999px; background:#c7d0da; position:relative; }
+#modulos .mini .sw::after { content:""; position:absolute; left:2px; top:2px; width:8px; height:8px; border-radius:50%; background:#fff; }
 #modulos .f-front { position:relative; z-index:3; padding:46px 18px 18px; border-radius:20px; display:flex; flex-direction:column; transition:background-color .25s; }
 #modulos .pasta:hover .f-front { background:var(--glass-2); }
 #modulos .f-ic { position:absolute; right:14px; top:14px; width:38px; height:38px; border-radius:50%; display:grid; place-items:center; background:rgba(255,255,255,.07); color:var(--fg-2); }
@@ -1083,7 +1083,7 @@ html.trava { overflow:hidden; }
         <div role="tabpanel" id="m-p-e" aria-labelledby="m-a-e" tabindex="0" hidden></div>
       </div>
       <footer class="g-pe">
-        <button type="button" class="btn g-ir" data-ir="-1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6 8.5 12l6 6"/></svg>Anterior<span class="sr-only"></span></button>
+        <button type="button" class="btn g-ir" data-ir="-1"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6 8.5 12l6 6"/></svg>Módulo anterior<span class="sr-only"></span></button>
         <button type="button" class="btn g-ir" data-ir="1">Próximo módulo<span class="sr-only"></span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 6l6 6-6 6"/></svg></button>
         <a class="btn p" href="https://app.prumonaobra.com.br/auth.html?register=1" target="_blank" rel="noopener">Criar conta grátis<span class="sr-only"> (abre em nova aba)</span></a>
       </footer>
@@ -1353,7 +1353,7 @@ html.trava { overflow:hidden; }
       <a class="btn" href="https://app.prumonaobra.com.br/auth.html?register=1&amp;plan=business&amp;returnTo=%2F%23configuracoes%2Fplan" target="_blank" rel="noopener"><span>Escolher <span class="pl">Business</span></span><span class="sr-only"> (abre em nova aba)</span></a>
       <details class="mais"><summary>Ver o que inclui</summary>
         <p class="cel">Para empresas maiores. 5.000 créditos de IA por mês.</p>
-        <ul><li>Tudo do Profissional</li><li>Automação</li><li>Análises avançadas</li></ul>
+        <ul><li>Tudo do Profissional</li><li>Automação (no horário: em implantação)</li><li>Análises avançadas</li></ul>
       </details>
     </li>
   </ul>
@@ -1591,7 +1591,7 @@ html.trava { overflow:hidden; }
     </div>
     <details class="mais"><summary>Ver créditos e avisos</summary>
       <p>Fotos sob a <a href="https://unsplash.com/license" target="_blank" rel="noopener">Licença Unsplash<span class="sr-only"> (abre em nova aba)</span></a>: fachada em obra, de <a href="https://unsplash.com/photos/6lvui3Ak-eA" target="_blank" rel="noopener">Phil Hearing<span class="sr-only"> (abre em nova aba)</span></a>; forro e fiação, de <a href="https://unsplash.com/photos/28bJE7KR7cM" target="_blank" rel="noopener">Olek Buzunov<span class="sr-only"> (abre em nova aba)</span></a>; iluminação da varanda, de <a href="https://unsplash.com/photos/cyZCG58Vc4s" target="_blank" rel="noopener">Bruno Guerrero<span class="sr-only"> (abre em nova aba)</span></a>.</p>
-      <p>As telas desta página são redesenhos do aplicativo Prumo Instalações, com dados fictícios. App pelo navegador, ainda fora das lojas. WhatsApp: em implantação. Grupo automático: recurso em avaliação. Conversa com a IA: funciona, revisada por você; IA em orçamentos, listas e rotinas: em homologação. Financeiro operacional, não contábil. Fonte Outfit, sob a licença SIL Open Font License 1.1.</p>
+      <p>As telas desta página são redesenhos do aplicativo Prumo Instalações, com dados fictícios. App pelo navegador, ainda fora das lojas. WhatsApp: em implantação. Grupo automático: recurso em avaliação. Conversa com a IA: funciona, revisada por você; IA em orçamentos, listas e rotinas: em homologação. Pesquisa de preços pela IA: em homologação. PDF da proposta e do ponto: em implantação. Automação no horário: em implantação. Cobrança dos planos: em teste. Financeiro operacional, não contábil. Fonte Outfit, sob a licença SIL Open Font License 1.1.</p>
     </details>
   </footer>
 </section>

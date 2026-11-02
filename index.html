@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-TDDLZPzrc8tfFID1Y9CmXZL0X96OAhkn0zme1iVmxNk=' 'sha256-4vqLNJnRw42uKHYIxGVC6l58DRwfUbsuyrnaKihryhU=' 'sha256-79LZvIUMk6dgD9AZUtPdi0t+51RMUbTAKEzy2W0EQFY=' 'sha256-L/8vZ5k022yF5o4T5o1hKjycOVsFuFmKZ5iUO9uL8ZU=' 'sha256-fk1Pf7XNSzsxfnFNcIsVKUhMWb1pWR4azw2dixpE3mw=' 'sha256-YpL8nMQ5fr6yugqEeMV/S7s+/Rd1Isd4HBOqM7lk2M8='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-TDDLZPzrc8tfFID1Y9CmXZL0X96OAhkn0zme1iVmxNk=' 'sha256-8kXCQNITHbG1Ty75oLMshdVtxLHSJZWAmmO6u7evYrw=' 'sha256-79LZvIUMk6dgD9AZUtPdi0t+51RMUbTAKEzy2W0EQFY=' 'sha256-L/8vZ5k022yF5o4T5o1hKjycOVsFuFmKZ5iUO9uL8ZU=' 'sha256-fk1Pf7XNSzsxfnFNcIsVKUhMWb1pWR4azw2dixpE3mw=' 'sha256-YpL8nMQ5fr6yugqEeMV/S7s+/Rd1Isd4HBOqM7lk2M8='; style-src 'unsafe-inline'; img-src data:; font-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="prumo-demo-numeros" content="e8052cf766fb3558">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Prumo Instalações · Gestão de obras num só lugar</title>
@@ -439,7 +439,7 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 </style>
 <section class="sec" id="inicio" aria-labelledby="inicio-t">
   <div class="txt">
-    <a class="lanc" id="lanc" href="https://wa.me/5547999775588?text=Quero%20entrar%20na%20lista%20do%20lan%C3%A7amento%20do%20Prumo" target="_blank" rel="noopener"><span>Lançamento 4/11: 1º mês do Fundador por R$&nbsp;19,90. <u>Entrar na lista</u></span><span class="sr-only"> (abre o WhatsApp em nova aba)</span></a>
+    <a class="lanc" id="lanc" href="https://wa.me/5547999775588?text=Quero%20entrar%20na%20lista%20do%20lan%C3%A7amento%20do%20Prumo" target="_blank" rel="noopener"><span>Lançamento 11/11: 1º mês do Fundador por R$&nbsp;19,90. <u>Entrar na lista</u></span><span class="sr-only"> (abre o WhatsApp em nova aba)</span></a>
     <header class="sec-h">
       <p class="ey">Prumo Instalações · gestão de obras</p>
       <h1 id="inicio-t">Sua obra inteira <span>num lugar só.</span></h1>
@@ -589,8 +589,8 @@ html:not([data-modo=detalhes]) .nada { display:none; }
 (() => {
   const a = document.getElementById('lanc');
   const hoje = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(new Date());
-  if (hoje > '2026-11-04') { a.hidden = true; return; }
-  if (hoje === '2026-11-04') {
+  if (hoje > '2026-11-11') { a.hidden = true; return; }
+  if (hoje === '2026-11-11') {
     a.href = 'https://app.prumonaobra.com.br/auth.html?register=1&plan=essential&cupom=LANCAMENTO&returnTo=%2F%23configuracoes%2Fplan';
     a.firstChild.innerHTML = 'Só hoje: 1º mês do Fundador por R$&nbsp;19,90. <u>Assinar agora</u>';
     a.lastChild.textContent = ' (abre em nova aba)';

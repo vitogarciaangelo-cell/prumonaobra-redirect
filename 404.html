@@ -11,8 +11,10 @@
 <body>
   <p>Abrindo o Prumo… <a href="https://app.prumonaobra.com.br/">Continuar</a></p>
   <script>
-    const target = new URL(location.pathname + location.search + location.hash, 'https://app.prumonaobra.com.br');
-    location.replace(target.href);
+    // only ever the app: a path like //other.site would otherwise resolve to another host (open redirect)
+    const APP = 'https://app.prumonaobra.com.br';
+    const target = new URL(location.pathname + location.search + location.hash, APP);
+    location.replace(target.origin === APP ? target.href : APP + '/');
   </script>
 </body>
 </html>
